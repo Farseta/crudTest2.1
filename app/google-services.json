@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "136017681222",
+    "project_id": "crud-realtime-client1",
+    "storage_bucket": "crud-realtime-client1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136017681222:android:7a4127fe162004dc4be347",
+        "android_client_info": {
+          "package_name": "com.example.crud_realtime_client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJyC-PthPmv-_FVKxwsKzJfsU3eWQtnxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136017681222:android:8ff1365612f17d8d4be347",
+        "android_client_info": {
+          "package_name": "com.example.crud_realtime_client1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJyC-PthPmv-_FVKxwsKzJfsU3eWQtnxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136017681222:android:5effab33dfbd77464be347",
+        "android_client_info": {
+          "package_name": "com.example.crudtest2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJyC-PthPmv-_FVKxwsKzJfsU3eWQtnxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
