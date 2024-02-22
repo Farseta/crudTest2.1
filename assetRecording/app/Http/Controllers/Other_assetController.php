@@ -12,6 +12,8 @@ class Other_assetController extends Controller
      */
     public function index()
     {
+        $otherAssets = Other_asset::all();
+        // return $otherAssets;
         return view('admin.otherAsset');
     }
 

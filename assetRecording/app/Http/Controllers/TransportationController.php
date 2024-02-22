@@ -12,7 +12,9 @@ class TransportationController extends Controller
      */
     public function index()
     {
-        return view('admin.transportation');
+        $transportations = Transportation::all();
+        // return $transportations;
+        return view('admin.transportation',compact('transportations'));
     }
 
     /**
