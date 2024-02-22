@@ -22,17 +22,17 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // otherAsset start
-Route::resource('/otherAsset',App\Http\Controllers\Other_assetController::class);
+Route::resource('/otherAssets',App\Http\Controllers\Other_assetController::class);
 // otherAsset end
 
 // vehicleAsset start
-Route::resource('/transportation',App\Http\Controllers\TransportationController::class);
+Route::resource('/transportations',App\Http\Controllers\TransportationController::class);
 // vehicleAsset end
 
 // vehicleLend start
-Route::resource('/vehicleLend',App\Http\Controllers\Vehicle_lendingController::class);
+Route::resource('/vehicleLends',App\Http\Controllers\Vehicle_lendingController::class);
 // vehicleLend end
 
 // vehileReturn start
-Route::resource('/vehicleReturn',App\Http\Controllers\Vehicle_returnController::class);
+Route::resource('/vehicleReturns',App\Http\Controllers\Vehicle_returnController::class);
 // vehileReturn end

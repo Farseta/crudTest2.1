@@ -12,7 +12,7 @@ class Vehicle_returnController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.vehicleReturn');
     }
 
     /**

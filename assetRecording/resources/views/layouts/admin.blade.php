@@ -31,7 +31,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="assets/dist/img/logo1.png" alt="gansop" height="500" width="800">
   </div>
 
   <!-- Navbar -->
@@ -42,7 +42,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{url('home')}}" class="nav-link">Home</a>
       </li>
       
     </ul>
@@ -97,9 +97,9 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{url('home')}}" class="brand-link">
+      <img src="{{asset('assets/dist/img/logo1.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">PGS</span>
     </a>
 
     <!-- Sidebar -->
@@ -115,7 +115,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      {{-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -124,7 +124,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -132,7 +132,7 @@
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('transportations')}}" class="nav-link {{request()->is('transportations')? 'active' : ''}}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
                         Asset Mobil
@@ -140,8 +140,8 @@
                     </p>
                     </a>
                 </li>
-            <li class="nav-item menu-close">
-                <a href="#" class="nav-link active">
+            <li class="nav-item  {{request()->is('vehicleLends')? 'menu-open' : ''}}">
+                <a href="#" class="nav-link {{request()->is('vehicleLends')? 'active' : ''}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     peminjaman
@@ -150,7 +150,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{url('vehicleLends')}}" class="nav-link {{request()->is('vehicleLends')? 'active' : ''}}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Mobil</p>
                     </a>
@@ -160,8 +160,8 @@
                 </ul>
             </li>
 
-            <li class="nav-item menu-close">
-                <a href="#" class="nav-link active">
+            <li class="nav-item  {{request()->is('vehicleReturns')? 'menu-open' : ''}}">
+                <a href="#" class="nav-link {{request()->is('vehicleReturns')? 'active' : ''}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Pengembalian
@@ -170,7 +170,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{url('vehicleReturns')}}" class="nav-link {{request()->is('vehicleReturns')? 'active' : ''}}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Mobil</p>
                     </a>
@@ -181,7 +181,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('otherAssets')}}" class="nav-link {{request()->is( 'otherAssets' ) ? 'active' : '' }} ">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Asset Lainnya
@@ -205,10 +205,10 @@
             <h1 class="m-0">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+            {{-- <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{url('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
+            </ol> --}}
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
