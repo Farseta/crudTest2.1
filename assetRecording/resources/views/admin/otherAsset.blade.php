@@ -40,10 +40,10 @@ Asset Lainnya
                             <td class="text-center">{{$key+1}}</td>
                             <td class="text-center">{{"$other_asset->type"}}</td>
                             <td class="text-center">
-                              {{"$other_asset->created_at"}}
+                              {{date('d/M/Y',strtotime("$other_asset->created_at"))}}
                             </td>
                             <td class="text-center">
-                              {{"$other_asset->updated_at"}}
+                              {{date('d/M/Y',strtotime("$other_asset->updated_at"))}}
                             </td>
                             <td class="text-center">
                               <a href="#" class="btn btn-info">view</a>

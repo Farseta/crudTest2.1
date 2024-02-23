@@ -56,10 +56,10 @@ Asset Mobil
                           {{$transportation->plate}}
                         </td>
                         <td class="text-center">
-                          {{$transportation->tax_date}}
+                          {{date('d/M/Y',strtotime($transportation->tax_date))}}
                         </td>
                         <td class="text-center">
-                          {{$transportation->oil_date}}
+                          {{date('d/M/Y',strtotime($transportation->oil_date))}}
                         </td>
                         <td class="text-center">
                           {{$transportation->status}}
@@ -70,9 +70,11 @@ Asset Mobil
                         <td class="text-center">
                           {{$transportation->last_km}}
                         </td>
-                        <td class="text-center">{{$transportation->created_at}}</td>
                         <td class="text-center">
-                          {{$transportation->updated_at}}
+                          {{date('d/M/Y',strtotime($transportation->created_at))}}
+                        </td>
+                        <td class="text-center">
+                          {{date('d/M/Y',strtotime($transportation->updated_at))}}
                         </td>
                         <td class="text-center">
                           <a href="#" class="btn btn-warning">update</a>
