@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Vehicle_lending;
 use Illuminate\Http\Request;
 
@@ -12,7 +11,10 @@ class Vehicle_lendingController extends Controller
      */
     public function index()
     {
-        return view('admin.vehicleLend');
+        $vehicle_lendings = Vehicle_lending::with('transportation','user')->get();
+        
+        // return $vehicle_lendings ;
+        return view('admin.vehicleLend',compact('vehicle_lendings'));
     }
 
     /**

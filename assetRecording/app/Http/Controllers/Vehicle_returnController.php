@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Vehicle_return;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class Vehicle_returnController extends Controller
      */
     public function index()
     {
-        return view('admin.vehicleReturn');
+        $vehicle_returns= Vehicle_return::with('vehicle_lending')->get();
+        // return $vehicle_returns;
+        return view('admin.vehicleReturn',compact('vehicle_returns'));
     }
 
     /**

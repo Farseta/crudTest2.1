@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('vehicle_returns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_transportation');
+            $table->unsignedBigInteger('id_vehicle_lending');
             $table->string('last_gas');
             $table->integer('last_km');
             $table->integer('gas_money');
             $table->timestamps();
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_transportation')->references('id')->on('transportations');
+            $table->foreign('id_vehicle_lending')->references('id')->on('vehicle_lendings');
         });
     }
 

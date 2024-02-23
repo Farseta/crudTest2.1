@@ -14,7 +14,7 @@ class Other_assetController extends Controller
     {
         $otherAssets = Other_asset::all();
         // return $otherAssets;
-        return view('admin.otherAsset');
+        return view('admin.otherAsset',compact('otherAssets'));
     }
 
     /**

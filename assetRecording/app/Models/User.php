@@ -43,4 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function vehicle_lendings(){
+        return $this->hasMany('App\Models\vehicle_lending','id_user');
+    }
 }
