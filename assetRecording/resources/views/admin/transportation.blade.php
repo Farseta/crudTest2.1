@@ -27,34 +27,61 @@ Asset Mobil
                       <tr>
                         <th style="width: 10px">No</th>
                         
-                        <th>tipe</th>
-                        <th>Brand</th>
-                        <th>Plat Nomor</th>
-                        <th>Pajak Kendaraan</th>
-                        <th>Ganti Oli</th>
-                        <th>Status</th>
-                        <th>Bensin Terakhir</th>
-                        <th>KM Terakhir</th>
-                        <th>Tgl Dibuat</th>
-                        <th>Tgl Diupdate</th>
-                        <th style="width: 40px">Aksi</th>
+                        <th class="text-center">tipe</th>
+                        <th class="text-center">Brand</th>
+                        <th class="text-center">Plat Nomor</th>
+                        <th class="text-center">Pajak Kendaraan</th>
+                        <th class="text-center">Ganti Oli</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Bensin Terakhir</th>
+                        <th class="text-center">KM Terakhir</th>
+                        <th class="text-center">Tgl Dibuat</th>
+                        <th class="text-center">Tgl Diupdate</th>
+                        <th style="width: 40px" class="text-center">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($transportations as $key=> $transportation)
                       <tr>
-                        <td>ssssssssssss</td>
-                        <td>ssssssssssss</td>
-                        <td>ssssssssss</td>
-                        <td>sssssssss</td>
-                        <td>ssssss</td>
-                        <td>sssssssss</td>
-                        <td>sssssssssss</td>
-                        <td>sssssssssss</td>
-                        <td>ssssssssssssss</td>
-                        <td>ssssssssssss</td>
-                        <td>sssssssssss</td>
-                        <td>ssssssssss</td>
+                        <td class="text-center">
+                          {{$key+1}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->type}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->brand}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->plate}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->tax_date}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->oil_date}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->status}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->last_gas}}
+                        </td>
+                        <td class="text-center">
+                          {{$transportation->last_km}}
+                        </td>
+                        <td class="text-center">{{$transportation->created_at}}</td>
+                        <td class="text-center">
+                          {{$transportation->updated_at}}
+                        </td>
+                        <td class="text-center">
+                          <a href="#" class="btn btn-warning">update</a>
+                          <hr>
+                          <a href="#" class="btn btn-danger">delete</a>
+                        </td>
                       </tr>
+                      @endforeach
+                      
                       
                     </tbody>
                   </table>

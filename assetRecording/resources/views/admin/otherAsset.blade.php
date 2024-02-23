@@ -18,32 +18,43 @@ Asset Lainnya
     {{-- table --}}
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card ">
                 <div class="card-header">
                   <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">Buat data Baru</a>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
+                <div class="card-body overflow-auto">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th>Type</th>
-                        <th>Tgl Upload</th>
-                        <th>Update Terakhir</th>
-                        <th style="width: 40px">Aksi</th>
+                        <th style="width: 10px" class="text-center">No</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Tgl Upload</th>
+                        <th class="text-center">Update Terakhir</th>
+                        <th style="width: 40px" class="text-center">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          
-                        </td>
-                        <td></td>
-                      </tr>
+                      @foreach ($other_assets as $key=>$other_asset)
+                          <tr>
+                            <td class="text-center">{{$key+1}}</td>
+                            <td class="text-center">{{"$other_asset->type"}}</td>
+                            <td class="text-center">
+                              {{"$other_asset->created_at"}}
+                            </td>
+                            <td class="text-center">
+                              {{"$other_asset->updated_at"}}
+                            </td>
+                            <td class="text-center">
+                              <a href="#" class="btn btn-info">view</a>
+                              <hr>
+                              <a href="#" class="btn btn-warning">update</a>
+                              <hr>
+                              <a href="#" class="btn btn-danger">delete</a>
+                            </td>
+                          </tr>
+                      @endforeach
+                      
                       
                     </tbody>
                   </table>

@@ -12,9 +12,9 @@ class Other_assetController extends Controller
      */
     public function index()
     {
-        $otherAssets = Other_asset::all();
+        $other_assets = Other_asset::all();
         // return $otherAssets;
-        return view('admin.otherAsset',compact('otherAssets'));
+        return view('admin.otherAsset',compact('other_assets'));
     }
 
     /**
