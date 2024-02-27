@@ -36,11 +36,26 @@ class Other_assetController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->file('image')->store('post-images');
         $this ->validate($request,[
             'type'=>['required'],
-            'pict'=>['required'],
+            'pict'=>['file'],
         ]);
-        Other_asset::create($request->all());
+        if($pict = $request->file('pict')){
+            $destinationPath = 'post-images/';
+            $pictName = date('YmdHis') . "." . $pict->getClientOriginalExtension();
+            // $pict->move($destinationPath, $pictName);
+            $pict->storeAs($destinationPath,  $pictName);
+            $pictPath = $destinationPath . $pictName;
+        };
+        
+        Other_asset::create([
+            'type' => $request->type,
+            'pict' => $pictPath,
+        ]);
+        
+        // $validatedData['pict'] = $request->file('pict')->store('post-images');
+        // Other_asset::create($request->all());
         return redirect('otherAssets');
     }
 

@@ -49,8 +49,9 @@
                                             {{ date('d/M/Y', strtotime("$other_asset->updated_at")) }}
                                         </td>
                                         <td class="text-center">
-                                            {{-- <a href="#" class="btn btn-info">view</a>
-                                            <hr> --}}
+                                            <a href="#" class="btn btn-info"
+                                                @click = "viewData({{ $other_asset }})">view</a>
+                                            <hr>
                                             <a href="#" class="btn btn-warning" type="button"
                                                 @click ="editData({{ $other_asset }})">update</a>
                                             <hr>
@@ -80,9 +81,9 @@
         </div>
         {{-- modals --}}
         <div class="modal fade" id="modal-primary">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-fullscreen" style="min-width:50%; min-height:50%;">
                 <div class="modal-content bg-primary">
-                    <form method="POST" :action="actionUrl" autocomplete="off">
+                    <form method="POST" :action="actionUrl" autocomplete="off" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h4 class="modal-title">Primary Modal</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -97,25 +98,19 @@
                                 <input type="text" name="type" :value="data.type" required=""
                                     class="form-control">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Tipe</label>
                                 <input type="text" name="pict" :value="data.pict" required=""
                                     class="form-control">
-                            </div>
-                            {{-- <div class="form-group">
+                            </div> --}}
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Upload</span>
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="pict" class="form-label">Default file input example</label>
+                                    <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;">
+                                    <input class="form-control" type="file" id="pict" name="pict"
+                                        onchange="previewImage()">
                                 </div>
                             </div>
-                        </div> --}}
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -128,6 +123,33 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        {{-- modal for show --}}
+        <div class="modal fade" id="modal-info">
+            <div class="modal-dialog modal-fullscreen" style="min-width:90%; min-height:90%;">
+                <div class="modal-content bg-info">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Info Modal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <form :action="actionUrl" autocomplete="off" enctype="multipart/form-data">
+                            <embed :src="anotherUrl" alt="" style="width: 800px; height: 800px;">
+                        </form>
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </div>
 @endsection
 
@@ -153,6 +175,7 @@
                 data: {},
                 actionUrl: '{{ url('otherAssets') }}',
                 editStatus: false,
+                anotherUrl: "{{ asset('storage') }}",
             },
             mounted: function() {
 
@@ -171,7 +194,8 @@
                     this.data = data;
 
                     $('#modal-primary').modal();
-                    this.actionUrl = '{{ url('otherAssets') }}'  + '/' + data.id;
+                    this.actionUrl = '{{ url('otherAssets') }}' + '/' + data.id;
+                    
                     this.editStatus = true;
                 },
                 deleteData(id) {
@@ -185,7 +209,26 @@
                     };
                     console.log(id);
                 },
+                viewData(data) {
+                    $('#modal-info').modal();
+                    this.actionUrl = '{{ url('otherAssets') }}' + '/' + data.id;
+                    this.anotherUrl = "{{ asset('storage') }}" + "/" + data.pict;
+                    console.log(anotherUrl);
+                }
             },
         });
+
+        function previewImage() {
+            const pict = document.querySelector('#pict');
+            const pictPreview = document.querySelector('.img-preview');
+            pictPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(pict.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                pictPreview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection
