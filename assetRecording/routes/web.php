@@ -27,6 +27,7 @@ Route::resource('/otherAssets',App\Http\Controllers\Other_assetController::class
 
 // vehicleAsset start
 Route::resource('/transportations',App\Http\Controllers\TransportationController::class);
+// Route::get('/api/transportations',[App\Http\Controllers\TransportationController::class,'api']);
 // vehicleAsset end
 
 // vehicleLend start

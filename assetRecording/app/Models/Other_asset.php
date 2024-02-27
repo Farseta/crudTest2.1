@@ -9,5 +9,5 @@ class Other_asset extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['type'];
+    protected $fillable = ['type','pict'];
 }

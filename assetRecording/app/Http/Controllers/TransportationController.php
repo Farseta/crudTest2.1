@@ -16,13 +16,19 @@ class TransportationController extends Controller
         // return $transportations;
         return view('admin.transportation',compact('transportations'));
     }
+    // public function api(){
+    //     $transportations = Transportation::all();
+    //     $datatables = datatables()->of($transportations)->addIndexColumn();
+
+    //     return $datatables->make(true);
+    // }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -30,7 +36,21 @@ class TransportationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $this->validate($request,[
+            'type' => ['required'],
+            'brand' => ['required'],
+            'plate' => ['required'],
+            'tax_date'  => ['required'],
+            'oil_date' => ['required'],
+            'status' => ['required'],
+            'last_gas' => ['required'],
+            'last_km' => ['required'],
+            
+        ]);
+        // return $request;
+        Transportation::create($request->all());
+        return redirect('transportations');
     }
 
     /**
@@ -54,7 +74,21 @@ class TransportationController extends Controller
      */
     public function update(Request $request, Transportation $transportation)
     {
-        //
+        
+        $this->validate($request,[
+            'type' => ['required'],
+            'brand' => ['required'],
+            'plate' => ['required'],
+            'tax_date'  => ['required'],
+            'oil_date' => ['required'],
+            'status' => ['required'],
+            'last_gas' => ['required'],
+            'last_km' => ['required'],
+            
+        ]);
+        // return $transportation;
+        $transportation->update($request->all());
+        return redirect('transportations');
     }
 
     /**
@@ -62,6 +96,6 @@ class TransportationController extends Controller
      */
     public function destroy(Transportation $transportation)
     {
-        //
+        $transportation->delete();
     }
 }

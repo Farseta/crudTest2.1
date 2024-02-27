@@ -16,6 +16,12 @@ class Other_assetController extends Controller
         // return $otherAssets;
         return view('admin.otherAsset',compact('other_assets'));
     }
+    // public function api(){
+    //     $other_assets = Other_asset::all();
+    //     $datatables = datatables()->of($other_assets)->addIndexColumn();
+
+    //     return $datatables->make(true);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +36,12 @@ class Other_assetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this ->validate($request,[
+            'type'=>['required'],
+            'pict'=>['required'],
+        ]);
+        Other_asset::create($request->all());
+        return redirect('otherAssets');
     }
 
     /**
@@ -52,16 +63,30 @@ class Other_assetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Other_asset $other_asset)
+    public function update(Request $request, $id)
     {
-        //
+        $this ->validate($request,[
+            'type'=>['required'],
+            'pict'=>['required'],
+        ]);
+        $test = Other_asset::find($id);
+        $test->type = $request->input('type');
+        $test->pict = $request->input('pict');
+        $test->update();
+        // return $test;
+        
+        // return $other_asset;
+        // $$test->update($request->all());
+        return redirect('otherAssets');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Other_asset $other_asset)
+    public function destroy($id)
     {
-        //
+        $test = Other_asset::find($id);
+        $test->delete();
+        // return redirect('otherAssets');
     }
 }
