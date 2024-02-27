@@ -122,6 +122,10 @@ class Other_assetController extends Controller
     public function destroy($id)
     {
         $test = Other_asset::find($id);
+        // return $test->pict;
+        if($test->pict){
+            Storage::disk('public')->delete($test->pict);
+        }
         $test->delete();
         // return redirect('otherAssets');
     }
