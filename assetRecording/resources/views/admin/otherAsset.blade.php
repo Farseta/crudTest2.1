@@ -106,6 +106,7 @@
                             <div class="form-group">
                                 <div class="mb-3">
                                     <label for="pict" class="form-label">Default file input example</label>
+                                    <input type="hidden" name="oldPict" id="oldPict" v-if='editStatus' :value="data.pict">
                                     <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;" :src="anotherUrl">
                                     <input class="form-control" type="file" id="pict" name="pict"
                                         onchange="previewImage()">

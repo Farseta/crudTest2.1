@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Other_asset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class Other_assetController extends Controller
 {
@@ -86,7 +87,11 @@ class Other_assetController extends Controller
         ]);
         // $test = Other_asset::find($id);
         // $test->type = $request->input('type');
+        // return $request->oldPict;
         if($pict = $request->file('pict')){
+            if($request->oldPict){
+                Storage::disk('public')->delete($request->oldPict);
+            }
             $destinationPath = 'post-images/';
             $pictName = date('YmdHis') . "." . $pict->getClientOriginalExtension();
             // $pict->move($destinationPath, $pictName);
