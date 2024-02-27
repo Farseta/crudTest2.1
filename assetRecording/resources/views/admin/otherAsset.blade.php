@@ -106,7 +106,7 @@
                             <div class="form-group">
                                 <div class="mb-3">
                                     <label for="pict" class="form-label">Default file input example</label>
-                                    <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;">
+                                    <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;" :src="anotherUrl">
                                     <input class="form-control" type="file" id="pict" name="pict"
                                         onchange="previewImage()">
                                 </div>
@@ -175,7 +175,7 @@
                 data: {},
                 actionUrl: '{{ url('otherAssets') }}',
                 editStatus: false,
-                anotherUrl: "{{ asset('storage') }}",
+                anotherUrl: "{{ asset('storage/post-images/dummy1.png') }}",
             },
             mounted: function() {
 
@@ -185,6 +185,7 @@
                     // data-toggle="modal"data-target="#modal-primary"
                     $('#modal-primary').modal();
                     this.actionUrl = '{{ url('otherAssets') }}';
+                    this.anotherUrl= "{{ asset('storage/post-images/dummy1.png') }}";
                     this.data = {};
                     console.log("add data");
                     this.editStatus = false;
@@ -196,6 +197,7 @@
                     $('#modal-primary').modal();
                     this.actionUrl = '{{ url('otherAssets') }}' + '/' + data.id;
                     
+                    this.anotherUrl = "{{ asset('storage') }}" + "/" + data.pict;
                     this.editStatus = true;
                 },
                 deleteData(id) {

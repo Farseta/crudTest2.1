@@ -82,13 +82,29 @@ class Other_assetController extends Controller
     {
         $this ->validate($request,[
             'type'=>['required'],
-            'pict'=>['required'],
+            'pict'=>['file'],
         ]);
+        // $test = Other_asset::find($id);
+        // $test->type = $request->input('type');
+        if($pict = $request->file('pict')){
+            $destinationPath = 'post-images/';
+            $pictName = date('YmdHis') . "." . $pict->getClientOriginalExtension();
+            // $pict->move($destinationPath, $pictName);
+            $pict->storeAs($destinationPath,  $pictName);
+            $pictPath = $destinationPath . $pictName;
+           
+        };
         $test = Other_asset::find($id);
-        $test->type = $request->input('type');
-        $test->pict = $request->input('pict');
-        $test->update();
+        // $test->type = $request->input('type');
+        // $test->pict = $request->input($pictPath);
+        $test->update([
+            'type' => $request->type,
+            'pict' => $pictPath,
+        ]);
+        // return $request;
         // return $test;
+        // $test->update();
+        
         
         // return $other_asset;
         // $$test->update($request->all());
