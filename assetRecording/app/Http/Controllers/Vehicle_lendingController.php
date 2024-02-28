@@ -72,9 +72,39 @@ class Vehicle_lendingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vehicle_lending $vehicle_lending)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'id_user'=>['required'],
+            'id_transportation'=>['required'],
+            'needs'=>['required'],
+            'gas_money'=>['required'],
+            'status' => ['required'],
+        ]);
+        $vehicle_lending = Vehicle_lending::find($id);
+        if( $request->get('id_transportation') != $request->get('oldIdTransportation')){
+            $transportations1 = Transportation::find($request->get('id_transportation'));
+            $transportations2 = Transportation::find($request->get('oldIdTransportation'));
+            $transportations1->update([
+                'status'=>$request->get('status'),
+            ]);
+            $transportations2->update([
+                'status'=>$request->get('oldStatus'),
+            ]);
+            // return$request;
+        };
+        
+        // return $vehicle_lending;
+        // return "benar";
+        $vehicle_lending->update([
+            'id_user'=>$request->get('id_user'),
+            'id_transportation'=>$request->get('id_transportation'),
+            'needs'=>$request->get('needs'),
+            'gas_money'=>$request->get('gas_money'),
+            
+        ]);
+        
+        return redirect('vehicleLends');
     }
 
     /**

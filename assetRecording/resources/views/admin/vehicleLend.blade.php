@@ -60,7 +60,8 @@
                                         <td class="text-center">
                                             {{-- <a href="#" type="button" class="btn btn-info">QR</a> --}}
                                             {{-- <hr> --}}
-                                            <a href="#" type="button" class="btn btn-warning">Edit</a>
+                                            <a href="#" type="button" class="btn btn-warning"
+                                                @click ="editData({{ $vehicle_lending }})">Edit</a>
                                             <hr>
                                             <a href="#" type="button" class="btn btn-danger">Hapus</a>
                                         </td>
@@ -107,36 +108,45 @@
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_user" name="id_user" required>
                                     <option value="{{ auth()->user()->id }}">{{ auth()->user()->name }}</option>
-                                    
-
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Plat Nomor</label>
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_transportation" name="id_transportation" required>
+
+
                                     @foreach ($transportations as $key => $transportation)
+                                        @if ($transportation->id === $vehicle_lending->id_transportation)
+                                            <option value="{{ $transportation->id }}" v-if='editStatus'>
+                                                {{ $transportation->plate }}
+
+                                            </option>
+                                        @endif
                                         @if ($transportation->status === 'ready')
                                             <option value="{{ $transportation->id }}">
                                                 {{ $transportation->plate }}
-                                                
+
                                             </option>
-                                            
                                         @endif
                                     @endforeach
-                                    
+
                                 </select>
+                                <input type="hidden" name="oldStatus" id="oldStatus" value="ready" v-if='editStatus'>
+                                <input type="hidden" name="oldIdTransportation" id="oldIdTransportation" :value="data.id_transportation" v-if='editStatus'>
                                 <input type="hidden" name="status" id="status" value="unready">
                             </div>
                             <div class="form-group">
                                 <label>Kebutuhan</label>
-                                <input type="text" name="needs" value="" required="" class="form-control">
+                                <input type="text" name="needs" :value="data.needs" required=""
+                                    class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Uang Bensin Yang Diberikan</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Rp.</span>
-                                    <input type="number" name="gas_money" value="" required="" class="form-control">
+                                    <input type="number" name="gas_money" :value="data.gas_money" required=""
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
