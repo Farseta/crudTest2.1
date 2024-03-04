@@ -24,7 +24,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="datatable">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
@@ -42,7 +42,7 @@
                                     <th style="width: 40px" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach ($transportations as $key => $transportation)
                                     <tr>
                                         <td class="text-center">
@@ -89,7 +89,7 @@
                                 @endforeach
 
 
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -110,7 +110,7 @@
         <div class="modal fade" id="modal-primary">
             <div class="modal-dialog">
                 <div class="modal-content bg-primary">
-                    <form method="POST" :action="actionUrl" autocomplete="off">
+                    <form method="POST" :action="actionUrl" autocomplete="off"  @submit = "submitForm($event,data.id)">
                         <div class="modal-header">
                             <h4 class="modal-title">Primary Modal</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -193,7 +193,7 @@
     <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}></script>
     <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
 
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var actionUrl = "{{ url('transportations') }}";
         var apiUrl = "{{ url('api/transportations') }}";
         var columns = [{
@@ -202,64 +202,142 @@
                 orderable: true,
             },
             {
-                data:'type',
+                data: 'type',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'brand',
+                data: 'brand',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'plate',
+                data: 'plate',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'tax_date',
+                data: 'tax_date',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'oil_date',
+                data: 'oil_date',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'status',
+                data: 'status',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'last_gas',
+                data: 'last_gas',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'last_km',
+                data: 'last_km',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'created_at',
+                data: 'created_at',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data:'updated_at',
+                data: 'updated_at',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data: 'action',
-                class: 'text-center',
+                render: function(index, row, data, meta) {
+                    //  masih error gak tau tar di cari
+                    return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
+              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+                },
                 orderable: false,
+                width: '200px',
+                class: 'text-center'
             },
 
         ]
-    </script> --}}
+    </script>
     <script type="text/javascript">
+        var controller = new Vue({
+
+            el: '#controller',
+            data: {
+                datas: [],
+                data: {},
+                actionUrl,
+                apiUrl,
+                editStatus: false,
+            },
+            mounted: function() {
+                this.datatable();
+
+            },
+
+            methods: {
+                datatable() {
+                    const _this = this;
+                    _this.table = $('#datatable').DataTable({
+
+                        ajax: {
+                            url: _this.apiUrl,
+                            type: 'GET',
+                        },
+                        columns: columns,
+                        // responsive: true,
+
+                    }).on('xhr', function() {
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                },
+                addData() {
+                    this.data = {};
+
+                    this.editStatus = false;
+                    $('#modal-primary').modal();
+
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    console.log(event);
+                    // this.data = data;
+
+                    this.editStatus = true;
+                    $('#modal-primary').modal();
+                },
+                deleteData(event, id) {
+                    // this.actionUrl = '{{ url('authors') }}' + '/' + id;
+                    if (confirm("wanna delete this one?")) {
+                        $(event.target).parents('tr').remove();
+                        axios.post(this.actionUrl + '/' + id, {
+                            _method: 'DELETE'
+                        }).then(response => {
+                            // location.reload();
+                            alert("data have been deleted")
+                        })
+                    }
+                    console.log(id);
+                },
+                submitForm(event, id) {
+                    event.preventDefault();
+                    const _this = this;
+                    var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                        $('#modal-primary').modal('hide');
+                        _this.table.ajax.reload();
+                    });
+                }
+
+            }
+        });
+    </script>
+    {{-- <script type="text/javascript">
         var controller = new Vue({
             el: '#controller',
             data: {
@@ -299,5 +377,5 @@
                 },
             },
         });
-    </script>
+    </script> --}}
 @endsection
