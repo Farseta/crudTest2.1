@@ -16,12 +16,12 @@ class TransportationController extends Controller
         // return $transportations;
         return view('admin.transportation',compact('transportations'));
     }
-    // public function api(){
-    //     $transportations = Transportation::all();
-    //     $datatables = datatables()->of($transportations)->addIndexColumn();
+    public function api(){
+        $transportations = Transportation::all();
+        $datatables = datatables()->of($transportations)->addIndexColumn();
 
-    //     return $datatables->make(true);
-    // }
+        return $datatables->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.

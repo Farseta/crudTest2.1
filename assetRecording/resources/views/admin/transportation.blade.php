@@ -193,6 +193,72 @@
     <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}></script>
     <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
 
+    {{-- <script type="text/javascript">
+        var actionUrl = "{{ url('transportations') }}";
+        var apiUrl = "{{ url('api/transportations') }}";
+        var columns = [{
+                data: 'DT_RowIndex',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'type',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'brand',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'plate',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'tax_date',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'oil_date',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'status',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'last_gas',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'last_km',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'created_at',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data:'updated_at',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: 'action',
+                class: 'text-center',
+                orderable: false,
+            },
+
+        ]
+    </script> --}}
     <script type="text/javascript">
         var controller = new Vue({
             el: '#controller',

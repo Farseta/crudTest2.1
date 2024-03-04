@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle_lending extends Model
 {
     use HasFactory;
-    protected $fillable=['id_user','id_transportation','needs','gas_money'];
+    protected $fillable=['id_user','id_transportation','needs','gas_money','status_lending'];
     public function transportation(){
         return $this->belongsTo('App\Models\Transportation','id_transportation');
     }

@@ -19,6 +19,12 @@ class Vehicle_lendingController extends Controller
         // return $vehicle_lendings ;
         return view('admin.vehicleLend',compact('vehicle_lendings','transportations','users'));
     }
+    public function api(){
+        $vehicle_lendings = Vehicle_lending::all();
+        $datatables = datatables()->of($vehicle_lendings)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,6 +46,7 @@ class Vehicle_lendingController extends Controller
             'needs'=>['required'],
             'gas_money'=>['required'],
             'status' => ['required'],
+            'status_lending' => ['required'],
         ]);
         
         $transportations = Transportation::find($request->get('id_transportation'));
@@ -74,12 +81,14 @@ class Vehicle_lendingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return$request;
         $this->validate($request,[
             'id_user'=>['required'],
             'id_transportation'=>['required'],
             'needs'=>['required'],
             'gas_money'=>['required'],
             'status' => ['required'],
+            'status_lending' => ['required'],
         ]);
         $vehicle_lending = Vehicle_lending::find($id);
         if( $request->get('id_transportation') != $request->get('oldIdTransportation')){
@@ -101,6 +110,7 @@ class Vehicle_lendingController extends Controller
             'id_transportation'=>$request->get('id_transportation'),
             'needs'=>$request->get('needs'),
             'gas_money'=>$request->get('gas_money'),
+            'status_lending'=>$request->get('status_lending'),
             
         ]);
         

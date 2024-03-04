@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_transportation');
             $table->string('needs');
             $table->integer('gas_money');
+            $table->string('status_lending');
             $table->timestamps();
             $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('id_transportation')->references('id')->on('transportations');

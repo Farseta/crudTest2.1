@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Vehicle_return;
+use App\Models\User;
+use App\Models\Vehicle_lending;
+use App\Models\Transportation;
 use Illuminate\Http\Request;
 
 class Vehicle_returnController extends Controller
@@ -15,7 +18,16 @@ class Vehicle_returnController extends Controller
     {
         $vehicle_returns= Vehicle_return::with('vehicle_lending')->get();
         // return $vehicle_returns;
-        return view('admin.vehicleReturn',compact('vehicle_returns'));
+        $transportations = Transportation::all();
+        $users = User::all();
+        $vehicle_lendings = Vehicle_lending::all();
+        return view('admin.vehicleReturn',compact('vehicle_returns', 'transportations', 'users', 'vehicle_lendings'));
+    }
+    public function api(){
+        $vehicle_returns = Vehicle_return::all();
+        $datatables = datatables()->of($vehicle_returns)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -31,7 +43,26 @@ class Vehicle_returnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $vehicle_lendings = Vehicle_lending::find($request->get('id_vehicle_lending'));
+        $transportations = Transportation::find($request->get('id_transportation'));
+        $this ->validate($request,[
+            'id_vehicle_lending'=>['required'],
+            'last_gas'=>['required'],
+            'last_km'=>['required'],
+            'gas_money'=>['required'],
+            'lending_status'=>['required'],
+        ]);
+        $vehicle_lendings->update([
+            'status_lending'=>$request->get('lending_status'),
+        ]);
+        $transportations->update([
+            'status'=>$request->get('status'),
+            'last_km'=>$request->get('last_km'),
+            'last_gas'=>$request->get('last_gas'),
+        ]);
+        Vehicle_return::create($request->all());
+        return redirect('vehicleReturns');
     }
 
     /**
@@ -55,7 +86,14 @@ class Vehicle_returnController extends Controller
      */
     public function update(Request $request, Vehicle_return $vehicle_return)
     {
-        //
+        $vehicle_lendings = Vehicle_lending::all();
+        $this ->validate($request,[
+            'id_vehicle_lending'=>['required'],
+            'last_gas'=>['required'],
+            'last_km'=>['required'],
+            'gas_money'=>['required'],
+            'status'=>['required'],
+        ]);
     }
 
     /**

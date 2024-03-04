@@ -33,40 +33,53 @@
                                     <th class="text-center">Plat Nomor transportasi</th>
                                     <th class="text-center">needs</th>
                                     <th class="text-center">uang bensin</th>
+                                    <th class="text-center">status</th>
                                     <th style="width: 40px" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($vehicle_lendings as $key => $vehicle_lending)
-                                    <tr>
-                                        <td class="text-center">
-                                            {{ $key + 1 }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $vehicle_lending->user->name }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $vehicle_lending->transportation->brand }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $vehicle_lending->transportation->plate }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $vehicle_lending->needs }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $vehicle_lending->gas_money }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{-- <a href="#" type="button" class="btn btn-info">QR</a> --}}
-                                            {{-- <hr> --}}
-                                            <a href="#" type="button" class="btn btn-warning"
-                                                @click ="editData({{ $vehicle_lending }})">Edit</a>
-                                            <hr>
-                                            <a href="#" type="button" class="btn btn-danger">Hapus</a>
-                                        </td>
+                                    @if ($vehicle_lending->id_user == auth()->user()->id)
+                                        <tr>
+                                            <td class="text-center">
+                                                {{ $key + 1 }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->user->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->transportation->brand }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->transportation->plate }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->needs }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->gas_money }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $vehicle_lending->status_lending }}
+                                            </td>
 
-                                    </tr>
+                                            <td class="text-center">
+                                                {{-- <a href="#" type="button" class="btn btn-info">QR</a> --}}
+                                                {{-- <hr> --}}
+                                                @if ($vehicle_lending->status_lending == 'returned' || $vehicle_lending->status_lending == 'canceled')
+                                                    ending
+                                                @else
+                                                    <a href="#" type="button" class="btn btn-warning"
+                                                        @click ="editData({{ $vehicle_lending }})">Edit</a>
+                                                        {{-- <a href="#" type="button" class="btn btn-danger">Hapus</a> --}}
+                                                    <hr>
+                                                   
+                                                @endif
+
+                                            </td>
+
+                                        </tr>
+                                    @endif
                                 @endforeach
 
 
@@ -117,14 +130,14 @@
 
 
                                     @foreach ($transportations as $key => $transportation)
-                                        @if ($transportation->id === $vehicle_lending->id_transportation)
-                                            <option value="{{ $transportation->id }}" v-if='editStatus'>
+                                        @if ($transportation->status === 'ready')
+                                            <option value="{{ $transportation->id }}">
                                                 {{ $transportation->plate }}
 
                                             </option>
-                                        @endif
-                                        @if ($transportation->status === 'ready')
-                                            <option value="{{ $transportation->id }}">
+                                        @else
+                                            <option value="{{ $transportation->id }}" v-if='editStatus'
+                                                :selected="data.id_transportation == {{ $transportation->id }}">
                                                 {{ $transportation->plate }}
 
                                             </option>
@@ -133,8 +146,10 @@
 
                                 </select>
                                 <input type="hidden" name="oldStatus" id="oldStatus" value="ready" v-if='editStatus'>
-                                <input type="hidden" name="oldIdTransportation" id="oldIdTransportation" :value="data.id_transportation" v-if='editStatus'>
+                                <input type="hidden" name="oldIdTransportation" id="oldIdTransportation"
+                                    :value="data.id_transportation" v-if='editStatus'>
                                 <input type="hidden" name="status" id="status" value="unready">
+                                <input type="hidden" name="status_lending" id="status_lending" value="lend">
                             </div>
                             <div class="form-group">
                                 <label>Kebutuhan</label>

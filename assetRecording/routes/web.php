@@ -23,17 +23,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // otherAsset start
 Route::resource('/otherAssets',App\Http\Controllers\Other_assetController::class);
+Route::get('/api/otherAssets',[App\Http\Controllers\Other_assetController::class,'api']);
 // otherAsset end
 
 // vehicleAsset start
 Route::resource('/transportations',App\Http\Controllers\TransportationController::class);
-// Route::get('/api/transportations',[App\Http\Controllers\TransportationController::class,'api']);
+Route::get('/api/transportations',[App\Http\Controllers\TransportationController::class,'api']);
 // vehicleAsset end
 
 // vehicleLend start
 Route::resource('/vehicleLends',App\Http\Controllers\Vehicle_lendingController::class);
+Route::get('/api/vehicleLends',[App\Http\Controllers\Vehicle_lendingController::class,'api']);
 // vehicleLend end
 
 // vehileReturn start
 Route::resource('/vehicleReturns',App\Http\Controllers\Vehicle_returnController::class);
+Route::get('/api/vehicleReturns',[App\Http\Controllers\Vehicle_returnController::class,'api']);
 // vehileReturn end
