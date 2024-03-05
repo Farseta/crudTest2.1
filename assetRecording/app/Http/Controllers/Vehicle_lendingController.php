@@ -20,8 +20,22 @@ class Vehicle_lendingController extends Controller
         return view('admin.vehicleLend',compact('vehicle_lendings','transportations','users'));
     }
     public function api(){
-        $vehicle_lendings = Vehicle_lending::all();
-        $datatables = datatables()->of($vehicle_lendings)->addIndexColumn();
+        $vehicle_lendings = Vehicle_lending::with('transportation','user')->get();
+        // $vehicle_lendings = Vehicle_lending::all();
+        $datatables = datatables()->of($vehicle_lendings)
+        // nama user
+        ->addColumn('name',function($vehicle_lendings){
+            return $vehicle_lendings->user->name;
+        })
+        // brand transportasi
+        ->addColumn('brand',function($vehicle_lendings){
+            return $vehicle_lendings->transportation->brand;
+        })
+        // plat nomor
+        ->addColumn('plate',function($vehicle_lendings){
+            return $vehicle_lendings->transportation->plate;
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }

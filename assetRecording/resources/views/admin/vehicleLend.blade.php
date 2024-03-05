@@ -23,7 +23,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="datatable">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
@@ -37,7 +37,7 @@
                                     <th style="width: 40px" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach ($vehicle_lendings as $key => $vehicle_lending)
                                     @if ($vehicle_lending->id_user == auth()->user()->id)
                                         <tr>
@@ -64,16 +64,15 @@
                                             </td>
 
                                             <td class="text-center">
-                                                {{-- <a href="#" type="button" class="btn btn-info">QR</a> --}}
-                                                {{-- <hr> --}}
+                                                <a href="#" type="button" class="btn btn-info">QR</a>
+                                                <hr>
                                                 @if ($vehicle_lending->status_lending == 'returned' || $vehicle_lending->status_lending == 'canceled')
                                                     ending
                                                 @else
                                                     <a href="#" type="button" class="btn btn-warning"
                                                         @click ="editData({{ $vehicle_lending }})">Edit</a>
-                                                        {{-- <a href="#" type="button" class="btn btn-danger">Hapus</a> --}}
+                                                    <a href="#" type="button" class="btn btn-danger">Hapus</a>
                                                     <hr>
-                                                   
                                                 @endif
 
                                             </td>
@@ -83,7 +82,7 @@
                                 @endforeach
 
 
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -104,7 +103,7 @@
         <div class="modal fade" id="modal-primary">
             <div class="modal-dialog">
                 <div class="modal-content bg-primary">
-                    <form method="POST" :action="actionUrl" autocomplete="off">
+                    <form method="POST" :action="actionUrl" autocomplete="off" @submit = "submitForm($event,data.id)">
                         <div class="modal-header">
                             <h4 class="modal-title">Primary Modal</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -195,6 +194,132 @@
     <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
 
     <script type="text/javascript">
+        var actionUrl = "{{ url('vehicleLends') }}";
+        var apiUrl = "{{ url('api/vehicleLends') }}";
+        var columns = [{
+                data: 'DT_RowIndex',
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "name",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                data: "brand",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                data: "plate",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                data: "needs",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                data: "gas_money",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                data: "status_lending",
+                class: "text-center",
+                orderable: true,
+            },
+            {
+                render: function(index, row, data, meta) {
+                    //  masih error gak tau tar di cari
+                    if (data.status_lending == 'returned' || data.status_lending == 'canceled') {
+                        return `ending`;
+                    } else {
+                        return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
+              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+                    }
+                    
+                },
+                orderable: false,
+                width: '200px',
+                class: 'text-center',
+            },
+        ];
+    </script>
+    <script type="text/javascript">
+        var controller = new Vue({
+            el: '#controller',
+            data: {
+                datas: [],
+                data: {},
+                actionUrl,
+                apiUrl,
+                editStatus: false,
+            },
+            mounted: function() {
+                this.datatable();
+            },
+            methods: {
+                datatable() {
+                    const _this = this;
+                    _this.table = $('#datatable').DataTable({
+
+                        ajax: {
+                            url: _this.apiUrl,
+                            type: 'GET',
+                        },
+                        columns: columns,
+                        // responsive: true,
+
+                    }).on('xhr', function() {
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                },
+                addData() {
+                    this.data = {};
+
+                    this.editStatus = false;
+                    $('#modal-primary').modal();
+
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    console.log(event);
+                    // this.data = data;
+
+                    this.editStatus = true;
+                    $('#modal-primary').modal();
+                },
+                deleteData(event, id) {
+                    // this.actionUrl = '{{ url('authors') }}' + '/' + id;
+                    if (confirm("wanna delete this one?")) {
+                        $(event.target).parents('tr').remove();
+                        axios.post(this.actionUrl + '/' + id, {
+                            _method: 'DELETE'
+                        }).then(response => {
+                            // location.reload();
+                            alert("data have been deleted")
+                        })
+                    }
+                    console.log(id);
+                },
+                submitForm(event, id) {
+                    event.preventDefault();
+                    const _this = this;
+                    var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                        $('#modal-primary').modal('hide');
+                        _this.table.ajax.reload();
+                    });
+                },
+            },
+
+        });
+    </script>
+
+    {{-- <script type="text/javascript">
         var controller = new Vue({
             el: '#controller',
             data: {
@@ -234,5 +359,5 @@
                 },
             },
         });
-    </script>
+    </script> --}}
 @endsection
