@@ -50,9 +50,17 @@ class Vehicle_returnController extends Controller
         ->addColumn('created_at_lending',function($vehicle_returns){
             return $vehicle_returns->vehicle_lending->created_at;
         })
+        // vehicle_lending created_at convert
+        ->addColumn('date_convert_created_at_lending',function($vehicle_returns){
+            return date_convert($vehicle_returns->vehicle_lending->created_at);
+        })
         // vehicle_return created_At
         ->addColumn('created_at_return',function($vehicle_returns){
             return $vehicle_returns->created_at;
+        })
+        // vehicle_Return created_At convert
+        ->addColumn('date_convert_created_at',function($vehicle_returns){
+            return date_convert($vehicle_returns->created_at);
         })
         ->addIndexColumn();
 

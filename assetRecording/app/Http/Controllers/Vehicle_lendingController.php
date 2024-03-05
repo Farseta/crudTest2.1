@@ -35,6 +35,7 @@ class Vehicle_lendingController extends Controller
         ->addColumn('plate',function($vehicle_lendings){
             return $vehicle_lendings->transportation->plate;
         })
+        
         ->addIndexColumn();
 
         return $datatables->make(true);

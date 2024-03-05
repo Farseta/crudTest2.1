@@ -187,12 +187,12 @@
                 orderable: true,
             },
             {
-                data: 'created_at',
+                data: 'date_convert_created_at',
                 class: 'text-center',
                 orderable: true,
             },
             {
-                data: 'updated_at',
+                data: 'date_convert_updated_at',
                 class: 'text-center',
                 orderable: true,
             },

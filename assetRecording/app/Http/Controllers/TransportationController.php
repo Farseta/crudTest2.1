@@ -18,7 +18,14 @@ class TransportationController extends Controller
     }
     public function api(){
         $transportations = Transportation::all();
-        $datatables = datatables()->of($transportations)->addIndexColumn();
+        $datatables = datatables()->of($transportations)
+        ->addColumn('date_convert_created_at',function($transportations){
+            return date_convert($transportations->created_at);
+        })
+        ->addColumn('date_convert_updated_at',function($transportations){
+            return date_convert($transportations->updated_at);
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }

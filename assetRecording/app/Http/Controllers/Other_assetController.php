@@ -19,7 +19,14 @@ class Other_assetController extends Controller
     }
     public function api(){
         $other_assets = Other_asset::all();
-        $datatables = datatables()->of($other_assets)->addIndexColumn();
+        $datatables = datatables()->of($other_assets)
+        ->addColumn("date_convert_created_at",function($publisher){
+            return date_convert($publisher->created_at);
+        })
+        ->addColumn("date_convert_updated_at",function($publisher){
+            return date_convert($publisher->updated_at);
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }
