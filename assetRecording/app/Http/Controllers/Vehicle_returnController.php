@@ -24,8 +24,37 @@ class Vehicle_returnController extends Controller
         return view('admin.vehicleReturn',compact('vehicle_returns', 'transportations', 'users', 'vehicle_lendings'));
     }
     public function api(){
-        $vehicle_returns = Vehicle_return::all();
-        $datatables = datatables()->of($vehicle_returns)->addIndexColumn();
+        $vehicle_returns = Vehicle_return::with('vehicle_lending')->get();
+        // $vehicle_returns = Vehicle_return::all();
+        $datatables = datatables()->of($vehicle_returns)
+        // name user
+        ->addColumn('name',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->user->name;
+        })
+        // brand transportasi
+        ->addColumn('brand',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->transportation->brand;
+        })
+        // plat nomor
+        ->addColumn('plate',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->transportation->plate;
+        })
+        
+        
+        // gas_money
+        ->addColumn('gas_money_last',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->gas_money;
+        })
+        
+        // vehicle_lending created_at
+        ->addColumn('created_at_lending',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->created_at;
+        })
+        // vehicle_return created_At
+        ->addColumn('created_at_return',function($vehicle_returns){
+            return $vehicle_returns->created_at;
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }

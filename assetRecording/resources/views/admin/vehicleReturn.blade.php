@@ -24,7 +24,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="datatable">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
@@ -41,7 +41,7 @@
                                     <th style="width: 40px">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach ($vehicle_returns as $key => $vehicle_return)
                                     @foreach ($users as $user)
                                         @if ($user->id == auth()->user()->id)
@@ -90,7 +90,7 @@
                                 @endforeach
 
 
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -207,6 +207,141 @@
 <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
 
 <script type="text/javascript">
+    var actionUrl = "{{ url('vehicleReturns') }}";
+    var apiUrl = "{{ url('api/vehicleReturns') }}";
+    var columns = [{
+            data: 'DT_RowIndex',
+            class: 'text-center',
+            orderable: true,
+        },
+        {
+            data:"name",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"plate",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"brand",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"last_gas",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"last_km",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"gas_money_last",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"gas_money",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"lending_status",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"created_at_lending",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            data:"created_at",
+            class:'text-center',
+            orderable: true,
+        },
+        {
+            render: function(index, row, data, meta) {
+            return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+            },
+        },
+    ];
+</script>
+
+<script type="text/javascript">
+    var controller = new Vue({
+        el: '#controller',
+            data: {
+                datas: [],
+                data: {},
+                actionUrl,
+                apiUrl,
+                editStatus: false,
+            },
+            mounted: function() {
+                this.datatable();
+            },
+            methods: {
+                datatable() {
+                    const _this = this;
+                    _this.table = $('#datatable').DataTable({
+
+                        ajax: {
+                            url: _this.apiUrl,
+                            type: 'GET',
+                        },
+                        columns: columns,
+                        // responsive: true,
+
+                    }).on('xhr', function() {
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                },
+                addData() {
+                    this.data = {};
+
+                    this.editStatus = false;
+                    $('#modal-primary').modal();
+
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    console.log(event);
+                    // this.data = data;
+
+                    this.editStatus = true;
+                    $('#modal-primary').modal();
+                },
+                deleteData(event, id) {
+                    // this.actionUrl = '{{ url('authors') }}' + '/' + id;
+                    if (confirm("wanna delete this one?")) {
+                        $(event.target).parents('tr').remove();
+                        axios.post(this.actionUrl + '/' + id, {
+                            _method: 'DELETE'
+                        }).then(response => {
+                            // location.reload();
+                            alert("data have been deleted")
+                        })
+                    }
+                    console.log(id);
+                },
+                submitForm(event, id) {
+                    event.preventDefault();
+                    const _this = this;
+                    var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                        $('#modal-primary').modal('hide');
+                        _this.table.ajax.reload();
+                    });
+                },
+            },
+    });
+</script>
+{{-- <script type="text/javascript">
     var controller = new Vue({
         el: '#controller',
         data: {
@@ -245,5 +380,5 @@
             },
         },
     });
-</script>
+</script> --}}
 @endsection
