@@ -83,7 +83,8 @@
         <div class="modal fade" id="modal-primary">
             <div class="modal-dialog modal-fullscreen" style="min-width:50%; min-height:50%;">
                 <div class="modal-content bg-primary">
-                    <form method="POST" :action="actionUrl" autocomplete="off" enctype="multipart/form-data" @submit = "submitForm($event,data.id)">
+                    <form method="POST" :action="actionUrl" autocomplete="off" enctype="multipart/form-data"
+                        @submit = "submitForm($event,data.id)">
                         <div class="modal-header">
                             <h4 class="modal-title">Primary Modal</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -107,11 +108,11 @@
                                 <div class="mb-3">
                                     <label for="pict" class="form-label">Default file input example</label>
                                     <input type="hidden" name="oldPict" id="oldPict" v-if='editStatus'
-                                        :value="data.pict">
+                                        :value="data.pict" >
                                     <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;"
                                         :src="anotherUrl">
                                     <input class="form-control" type="file" id="pict" name="pict"
-                                        onchange="previewImage()">
+                                        onchange="previewImage()" >
                                 </div>
                             </div>
                         </div>
@@ -279,14 +280,16 @@
                 },
                 submitForm(event, id) {
                     event.preventDefault();
-                    // console.log(this.anotherUrl);
+
                     const _this = this;
-                    
+
                     var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
-                    
+                    console.log(this.editStatus);
                     // var  anotherUrl = !this.editStatus ? this.anotherUrl : this.anotherUrl + '/' + id;
-                    console.log(this.anotherUrl);
-                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    // console.log(this.anotherUrl);
+                    axios.post(actionUrl, new FormData($(event.target)[0]), {headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }}).then(response => {
                         $('#modal-primary').modal('hide');
                         _this.table.ajax.reload();
                     });
