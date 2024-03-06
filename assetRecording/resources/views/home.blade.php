@@ -2,6 +2,8 @@
 
 
 @section('CSS')
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
 @section('title')
@@ -27,9 +29,10 @@
                   <p>Total transportasi dimiliki</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-bag"></i>
+                    <i><ion-icon name="car-outline"></ion-icon></i>
+                    
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{url('transportations')}}" class="small-box-footer">ke aset mobil <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -44,9 +47,9 @@
                   <p>Transportasi siap dipakai</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                    <i><ion-icon name="thumbs-up-outline"></ion-icon></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{url('vehicleLends')}}" class="small-box-footer">ke peminjaman mobil <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -61,9 +64,9 @@
                     <p>Transportasi sedang dipakai</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i><ion-icon name="thumbs-down-outline"></ion-icon></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="{{url('vehicleReturns')}}" class="small-box-footer">ke pengembalian mobil <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-3 col-12">
@@ -77,9 +80,9 @@
                     <p>Total Asset</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i><ion-icon name="reader-outline"></ion-icon></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="{{url('otherAssets')}}" class="small-box-footer">ke asset lainnya <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <!-- ./col -->

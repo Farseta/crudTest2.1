@@ -124,7 +124,7 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{url('transportations')}}" class="nav-link {{request()->is('transportations')? 'active' : ''}}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fas fa-car"></i>
                     <p>
                         Asset Mobil
                         
@@ -133,7 +133,7 @@
                 </li>
             <li class="nav-item  {{request()->is('vehicleLends')? 'menu-open' : ''}}">
                 <a href="#" class="nav-link {{request()->is('vehicleLends')? 'active' : ''}}">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-folder"></i>
                 <p>
                     peminjaman
                     <i class="right fas fa-angle-left"></i>
@@ -153,7 +153,7 @@
 
             <li class="nav-item  {{request()->is('vehicleReturns')? 'menu-open' : ''}}">
                 <a href="#" class="nav-link {{request()->is('vehicleReturns')? 'active' : ''}}">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-folder"></i>
                 <p>
                     Pengembalian
                     <i class="right fas fa-angle-left"></i>
@@ -173,7 +173,7 @@
 
             <li class="nav-item">
                 <a href="{{url('otherAssets')}}" class="nav-link {{request()->is( 'otherAssets' ) ? 'active' : '' }} ">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
                 <p>
                     Asset Lainnya
                     
