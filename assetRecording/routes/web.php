@@ -40,3 +40,8 @@ Route::get('/api/vehicleLends',[App\Http\Controllers\Vehicle_lendingController::
 Route::resource('/vehicleReturns',App\Http\Controllers\Vehicle_returnController::class);
 Route::get('/api/vehicleReturns',[App\Http\Controllers\Vehicle_returnController::class,'api']);
 // vehileReturn end
+
+// print start
+Route::resource('/print', App\Http\Controllers\PrintController::class);
+Route::get('/api/print', [App\Http\Controllers\PrintController::class, 'api']);
+// print end

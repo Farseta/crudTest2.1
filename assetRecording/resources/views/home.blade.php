@@ -107,6 +107,7 @@
                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>
+            <a href="{{url('print')}}" class="btn btn-primary"> cetak data</a>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
