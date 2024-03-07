@@ -238,9 +238,9 @@
                         return `ending`;
                     } else {
                         return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
-              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+                        <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
                     }
-                    
+
                 },
                 orderable: false,
                 width: '200px',
@@ -293,15 +293,21 @@
                     $('#modal-primary').modal();
                 },
                 deleteData(event, id) {
+
                     // this.actionUrl = '{{ url('authors') }}' + '/' + id;
                     if (confirm("wanna delete this one?")) {
-                        $(event.target).parents('tr').remove();
+                        // $(event.target).parents('tr').remove();
                         axios.post(this.actionUrl + '/' + id, {
                             _method: 'DELETE'
                         }).then(response => {
+                            const _this = this;
+                            _this.table.ajax.reload();
                             // location.reload();
                             alert("data have been deleted")
-                        })
+                        }).catch(error => {
+                            console.error('Error deleting data:', error);
+                            alert("Failed to delete data");
+                        });
                     }
                     console.log(id);
                 },

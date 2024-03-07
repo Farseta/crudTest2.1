@@ -135,8 +135,18 @@ class Vehicle_lendingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vehicle_lending $vehicle_lending)
+    public function destroy(Vehicle_lending $vehicle_lending,$id)
     {
-        //
+        // return $request;
+        $vehicle_lending = Vehicle_lending::find($id);
+        $transportation = Transportation::find($vehicle_lending->id_transportation);
+        $transportation->update([
+            'status'=>'ready',
+        ]);
+        $vehicle_lending->update([
+            'status_lending'=>'canceled',
+        
+        ]);
+        return redirect('vehicleLends');
     }
 }
