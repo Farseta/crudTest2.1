@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Vehicle_lending;
+use App\Models\Vehicle_return;
 use App\Models\User;
 use App\Models\Transportation;
 use Illuminate\Http\Request;
@@ -145,7 +146,14 @@ class Vehicle_lendingController extends Controller
         ]);
         $vehicle_lending->update([
             'status_lending'=>'canceled',
-        
+            
+        ]);
+        Vehicle_return::create([
+            'id_vehicle_lending'=> $id,
+            'last_gas' => $transportation->last_gas,
+            'last_km' => $transportation->last_km,
+            'gas_money' => $vehicle_lending->gas_money,
+            'lending_status'=>'canceled',
         ]);
         return redirect('vehicleLends');
     }
