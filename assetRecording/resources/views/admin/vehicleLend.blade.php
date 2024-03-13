@@ -142,7 +142,7 @@
                                             </option>
                                         @endif
                                     @endforeach
-
+                                    
                                 </select>
                                 <input type="hidden" name="oldStatus" id="oldStatus" value="ready" v-if='editStatus'>
                                 <input type="hidden" name="oldIdTransportation" id="oldIdTransportation"
@@ -302,6 +302,10 @@
                         }).then(response => {
                             const _this = this;
                             _this.table.ajax.reload();
+                            // $('#modal-primary').on('hidden.bs.modal', function() {
+                            //     $(this).find('.modal-content').load(location.href +
+                            //         ' .modal-content');
+                            // });
                             // location.reload();
                             alert("data have been deleted")
                         }).catch(error => {
@@ -317,13 +321,41 @@
                     var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
                     axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
                         $('#modal-primary').modal('hide');
+                        // modal-primary reload
+
+                        // $('#modal-primary').on('hidden.bs.modal', function() {
+                        //     $(this).find('.modal-content').load(location.href + ' .modal-content');
+                        // });
+                        // location.reload();
                         _this.table.ajax.reload();
-                        
+
+
                     });
                 },
+
             },
 
         });
+
+        // function reloadSelectOptions() {
+        //     $('#id_transportation').empty();
+        //     $.ajax({
+        //         url: "{{ url('api/transportations') }}", // Ganti dengan URL endpoint Anda
+        //         type: 'GET',
+        //         success: function(data) {
+        //             console.log(data);
+        //             // Perbarui opsi dalam elemen <select>
+        //             // $('#id_transportation').empty(); // Kosongkan elemen select
+        //             // $.each(data, function(key, value) {
+        //             //     $('#id_transportation').append($('<option>').text(value).attr(
+        //             //         'value', key));
+        //             // });
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('Error loading select options:', error);
+        //         }
+        //     });
+        // };
     </script>
 
     {{-- <script type="text/javascript">
