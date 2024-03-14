@@ -122,16 +122,16 @@
                                     <option value="{{ auth()->user()->id }}">{{ auth()->user()->name }}</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="testReload">
                                 <label>Plat Nomor</label>
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_transportation" name="id_transportation" required>
 
 
-                                    @foreach ($transportations as $key => $transportation)
+                                    {{-- @foreach ($transportations as $key => $transportation)
                                         @if ($transportation->status === 'ready')
                                             <option value="{{ $transportation->id }}">
-                                                {{ $transportation->plate }}
+                                                {{ $key }} {{ $transportation->plate }}
 
                                             </option>
                                         @else
@@ -141,8 +141,8 @@
 
                                             </option>
                                         @endif
-                                    @endforeach
-                                    
+                                    @endforeach --}}
+
                                 </select>
                                 <input type="hidden" name="oldStatus" id="oldStatus" value="ready" v-if='editStatus'>
                                 <input type="hidden" name="oldIdTransportation" id="oldIdTransportation"
@@ -278,6 +278,40 @@
                     });
                 },
                 addData() {
+
+                    $('#modal-primary').off('shown.bs.modal'); 
+                    $('#modal-primary').on('shown.bs.modal', function() {
+                        $.ajax({
+                            url: '{{ url('api/transportations') }}',
+                            type: 'GET',
+                            success: function(data2) {
+                                console.log("addData");
+                                // Perbarui opsi-opsi dalam elemen <select>
+                                var select = $('#id_transportation');
+                                select.empty();
+                                var aphtml = '';
+                                console.log(data2['data']);
+                                let datas = data2['data'];
+                                for (let i = 0; i < datas.length; i++) {
+                                    if (datas[i]['status'] === 'ready')
+                                        aphtml =
+                                        `<option value="${datas[i]['id']}">${datas[i]['plate']}</option>`;
+                                    else
+                                        aphtml = '';
+                                    select.append(aphtml);
+
+
+                                }
+
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error loading transportation data:', error);
+                            }
+                        });
+
+                    });
+                    // $('#id_transportation').empty();
+                    // reloadSelectOptions();
                     this.data = {};
 
                     this.editStatus = false;
@@ -287,9 +321,61 @@
                 editData(event, row) {
                     this.data = this.datas[row];
                     console.log(event);
-                    // this.data = data;
-
                     this.editStatus = true;
+                    // this.data = data;
+                    $('#modal-primary').off('shown.bs.modal'); 
+                    if (this.editStatus == true) {
+                        $('#modal-primary').on('shown.bs.modal', function() {
+                            $.ajax({
+                                url: '{{ url('api/transportations') }}',
+                                type: 'GET',
+                                success: function(data) {
+                                    // Perbarui opsi-opsi dalam elemen <select>
+                                    $.ajax({
+                                        url: apiUrl,
+                                        type: 'GET',
+                                        success: function(data1) {
+                                            console.log("editData");
+                                            console.log(data1['data'][row][
+                                                'DT_RowIndex'
+                                            ]);
+                                            // console.log(row);
+                                            var select = $('#id_transportation');
+                                            select.empty();
+                                            var aphtml = '';
+
+                                            let datas = data['data'];
+                                            for (let i = 0; i < datas.length; i++) {
+                                                if (datas[i]['status'] === 'ready')
+                                                    aphtml =
+                                                    `<option value="${datas[i]['id']}">${datas[i]['plate']}</option>`;
+                                                else if (datas[i]['id'] === data1[
+                                                        'data'][row][
+                                                        'id_transportation'
+                                                    ])
+                                                    aphtml =
+                                                    `<option value="${datas[i]['id']}" selected>${datas[i]['plate']}</option>`;
+                                                else
+                                                    aphtml = '';
+                                                select.append(aphtml);
+
+
+                                            }
+                                        },
+                                    })
+
+
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error loading transportation data:', error);
+                                }
+                            });
+
+                        });
+                    }
+
+
+
                     $('#modal-primary').modal();
                 },
                 deleteData(event, id) {
@@ -321,12 +407,25 @@
                     var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
                     axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
                         $('#modal-primary').modal('hide');
+                        // $(this).find('#id_transportation').each(function() {
+                        //         var selectedValue = $(this).val();
+                        //         $(this).find('option[value="' + selectedValue + '"]')
+                        //             .remove();
+                        //     });
                         // modal-primary reload
 
                         // $('#modal-primary').on('hidden.bs.modal', function() {
                         //     $(this).find('.modal-content').load(location.href + ' .modal-content');
                         // });
                         // location.reload();
+                        // $('form').submit(function(event) {
+                        //     // Menghapus opsi yang dipilih dari elemen <select>
+                        //     // $(this).find('#id_transportation').each(function() {
+                        //     //     var selectedValue = $(this).val();
+                        //     //     $(this).find('option[value="' + selectedValue + '"]')
+                        //     //         .remove();
+                        //     // });
+                        // });
                         _this.table.ajax.reload();
 
 
@@ -337,25 +436,33 @@
 
         });
 
-        // function reloadSelectOptions() {
-        //     $('#id_transportation').empty();
+        // function loadTransportations() {
         //     $.ajax({
-        //         url: "{{ url('api/transportations') }}", // Ganti dengan URL endpoint Anda
+        //         url: '{{ url('api/transportations') }}',
         //         type: 'GET',
         //         success: function(data) {
-        //             console.log(data);
-        //             // Perbarui opsi dalam elemen <select>
-        //             // $('#id_transportation').empty(); // Kosongkan elemen select
-        //             // $.each(data, function(key, value) {
-        //             //     $('#id_transportation').append($('<option>').text(value).attr(
-        //             //         'value', key));
-        //             // });
+        //             // Perbarui opsi-opsi dalam elemen <select>
+        //             var select = $('#id_transportation');
+        //             select.empty();
+        //             var aphtml = '';
+        //             console.log(data['data']);
+        //             let datas = data['data'];
+        //             for (let i = 0; i < datas.length; i++) {
+        //                 if (datas[i]['status'] === 'ready')
+        //                     aphtml = `<option value="${datas[i]['id']}">${datas[i]['plate']}</option>`;
+        //                 else
+        //                     aphtml = '';
+        //                 select.append(aphtml);
+
+
+        //             }
+
         //         },
         //         error: function(xhr, status, error) {
-        //             console.error('Error loading select options:', error);
+        //             console.error('Error loading transportation data:', error);
         //         }
         //     });
-        // };
+        // }
     </script>
 
     {{-- <script type="text/javascript">
