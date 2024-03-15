@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+    Register
+@endsection
 @section('content')
 <div class="register-box">
     <div class="card card-outline card-primary">

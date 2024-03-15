@@ -35,12 +35,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <a href="#" type="button" class="btn btn-primary" onclick="printData()">Print Data</a>
-                    </div>
+                    </div> --}}
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
                         <table class="table table-bordered" id="datatable">
+                            {{-- <h1 class="text-center"> judul</h1> --}}
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
@@ -232,6 +233,11 @@
                 this.datatable();
             },
             methods: {
+                // $(document).ready(function() {
+                //     $('#datatable').DataTable({
+                //         dom:
+                //     });
+                // });
                 datatable() {
                     const _this = this;
                     _this.table = $('#datatable').DataTable({
@@ -242,48 +248,21 @@
                         },
                         columns: columns,
                         // responsive: true,
-
+                        dom:"Bfrtip",
+                        button:[{
+                            extend : 'pdf',
+                            oriented: 'potrait',
+                            pageSize:'Legal',
+                            title: 'Data Kendaraan',
+                            download: 'open',
+                        },
+                            'copy', 'csv', 'excel', 'print'
+                        ]
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;
                     });
                 },
-                addData() {
-                    this.data = {};
-
-                    this.editStatus = false;
-                    $('#modal-primary').modal();
-
-                },
-                editData(event, row) {
-                    this.data = this.datas[row];
-                    console.log(event);
-                    // this.data = data;
-
-                    this.editStatus = true;
-                    $('#modal-primary').modal();
-                },
-                deleteData(event, id) {
-                    // this.actionUrl = '{{ url('authors') }}' + '/' + id;
-                    if (confirm("wanna delete this one?")) {
-                        $(event.target).parents('tr').remove();
-                        axios.post(this.actionUrl + '/' + id, {
-                            _method: 'DELETE'
-                        }).then(response => {
-                            // location.reload();
-                            alert("data have been deleted")
-                        })
-                    }
-                    console.log(id);
-                },
-                submitForm(event, id) {
-                    event.preventDefault();
-                    const _this = this;
-                    var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
-                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
-                        $('#modal-primary').modal('hide');
-                        _this.table.ajax.reload();
-                    });
-                },
+                
             },
         });
 
@@ -294,44 +273,5 @@
             newWindow.print();
         };
     </script>
-    {{-- <script type="text/javascript">
-    var controller = new Vue({
-        el: '#controller',
-        data: {
-            data: {},
-            actionUrl: '{{ url('vehicleReturns') }}',
-            editStatus: false,
-        },
-        mounted: function() {
 
-        },
-        methods: {
-            addData() {
-                $('#modal-primary').modal();
-                this.actionUrl = '{{ url('vehicleReturns') }}';
-                this.data = {};
-                console.log("add data");
-                this.editStatus = false;
-            },
-            editData() {
-                $('#modal-primary').modal();
-                this.data = data;
-                this.actionUrl = '{{ url('vehicleReturns') }}' + '/' + data.id;
-                $('#modal-primary').modal();
-                this.editStatus = true;
-            },
-            deleteData() {
-                this.actionUrl = '{{ url('vehicleReturns') }}' + '/' + id;
-                if (confirm("wanna delete this data?")) {
-                    axios.post(this.actionUrl, {
-                        _method: 'DELETE'
-                    }).then(response => {
-                        location.reload();
-                    });
-                };
-                console.log(id);
-            },
-        },
-    });
-</script> --}}
 @endsection
