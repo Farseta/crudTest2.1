@@ -82,7 +82,7 @@ class Vehicle_returnController extends Controller
     {
         // return $request;
         $vehicle_lendings = Vehicle_lending::find($request->get('id_vehicle_lending'));
-        $transportations = Transportation::find($request->get('id_transportation'));
+        $transportations = Transportation::find($vehicle_lendings->id_transportation);
         $this ->validate($request,[
             'id_vehicle_lending'=>['required'],
             'last_gas'=>['required'],

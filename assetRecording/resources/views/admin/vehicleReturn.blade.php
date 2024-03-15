@@ -133,15 +133,8 @@
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_vehicle_lending" name="id_vehicle_lending" required>
 
-                                    @foreach ($vehicle_lendings as $vehicle_lending)
-                                        {{-- @if ($vehicle_lending->status_lending == 'lend')
-                                @foreach ($transportations as $transportation)
-                                @if ($transportation->id == $vehicle_lending->id_transportation)
-                                    <option value="{{ $vehicle_lending->id }}">{{ $transportation->plate_number }}</option>
-                                    @break
-                                @endif   
-                            @endforeach
-                                @endif --}}
+                                    {{-- @foreach ($vehicle_lendings as $vehicle_lending)
+                                        
                                         @if ($vehicle_lending->status_lending == 'lend')
                                             @foreach ($transportations as $transportation)
                                                 @if ($transportation->id == $vehicle_lending->id_transportation && $vehicle_lending->id_user == auth()->user()->id)
@@ -154,127 +147,127 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                @endforeach
+                                @endforeach --}}
 
-                            </select>
-                            <input type="hidden" name="lending_status" id="lending_status" value="returned">
-                            <input type="hidden" name="status" id="status" value="ready">
-                        </div>
+                                </select>
+                                <input type="hidden" name="lending_status" id="lending_status" value="returned">
+                                <input type="hidden" name="status" id="status" value="ready">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Bensin Terakhir</label>
-                            <input type="text" name="last_gas" value="" required="" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>KM Terakhir</label>
-                            <input type="text" name="last_km" value="" required="" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>sisa uang</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Rp.</span>
-                                <input type="number" name="gas_money" value="" required=""
-                                    class="form-control">
+                            <div class="form-group">
+                                <label>Bensin Terakhir</label>
+                                <input type="text" name="last_gas" value="" required="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>KM Terakhir</label>
+                                <input type="text" name="last_km" value="" required="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>sisa uang</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Rp.</span>
+                                    <input type="number" name="gas_money" value="" required=""
+                                        class="form-control">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-outline-light">Save changes</button>
-                    </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-light">Save changes</button>
+                        </div>
+                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal -->
     </div>
-    <!-- /.modal -->
-</div>
 @endsection
 
 @section('JS')
-<!-- DataTables  & Plugins -->
-<script src={{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}></script>
-<script src={{ asset('assets/plugins/jszip/jszip.min.js') }}></script>
-<script src={{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}></script>
-<script src={{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}></script>
-<script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
+    <!-- DataTables  & Plugins -->
+    <script src={{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}></script>
+    <script src={{ asset('assets/plugins/jszip/jszip.min.js') }}></script>
+    <script src={{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}></script>
+    <script src={{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}></script>
+    <script src={{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}></script>
 
-<script type="text/javascript">
-    var actionUrl = "{{ url('vehicleReturns') }}";
-    var apiUrl = "{{ url('api/vehicleReturns') }}";
-    var columns = [{
-            data: 'DT_RowIndex',
-            class: 'text-center',
-            orderable: true,
-        },
-        {
-            data:"name",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"plate",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"brand",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"last_gas",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"last_km",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"gas_money_last",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"gas_money",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"lending_status",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"date_convert_created_at_lending",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            data:"date_convert_created_at",
-            class:'text-center',
-            orderable: true,
-        },
-        {
-            render: function(index, row, data, meta) {
-            return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+    <script type="text/javascript">
+        var actionUrl = "{{ url('vehicleReturns') }}";
+        var apiUrl = "{{ url('api/vehicleReturns') }}";
+        var columns = [{
+                data: 'DT_RowIndex',
+                class: 'text-center',
+                orderable: true,
             },
-        },
-    ];
-</script>
+            {
+                data: "name",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "plate",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "brand",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "last_gas",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "last_km",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "gas_money_last",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "gas_money",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "lending_status",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "date_convert_created_at_lending",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                data: "date_convert_created_at",
+                class: 'text-center',
+                orderable: true,
+            },
+            {
+                render: function(index, row, data, meta) {
+                    return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                },
+            },
+        ];
+    </script>
 
-<script type="text/javascript">
-    var controller = new Vue({
-        el: '#controller',
+    <script type="text/javascript">
+        var controller = new Vue({
+            el: '#controller',
             data: {
                 datas: [],
                 data: {},
@@ -303,32 +296,76 @@
                 },
                 addData() {
                     this.data = {};
+                    $('#modal-primary').off('shown.bs.modal');
+                    $('#modal-primary').on('shown.bs.modal', function() {
+                        $.ajax({
+                            url: '{{ url('api/transportations') }}',
+                            type: 'GET',
+                            success: function(data) {
+                                // Perbarui opsi-opsi dalam elemen <select>
+                                $.ajax({
+                                    url: '{{ url('/api/vehicleLends') }}',
+                                    type: 'GET',
+                                    success: function(data1) {
+                                        console.log("editData");
+                                        // console.log(datas1[i]['id_transportation']);
+                                        // console.log(row);
+                                        var select = $('#id_vehicle_lending');
+                                        select.empty();
+                                        var aphtml = '';
 
+                                        let datas = data['data'];
+                                        let datas1 = data1['data'];
+                                        for (let i = 0; i < datas1.length; i++) {
+                                            if (datas1[i]['status_lending'] ===
+                                                'lend') {
+                                                for (let j = 0; j < datas
+                                                    .length; j++) {
+                                                    if (datas1[i][
+                                                            'id_transportation'
+                                                        ] === datas[j]['id']) {
+                                                        aphtml = `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
+                                                        console.log(datas1[i][
+                                                            'id_transportation'
+                                                        ]);
+                                                        select.append(aphtml);
+                                                            
+                                                    } else
+                                                        aphtml = '';
+                                                }
+
+
+                                            } else
+                                                aphtml = '';
+
+                                            // else if (datas[i]['id'] === data1[
+                                            //         'data'][row][
+                                            //         'id_transportation'
+                                            //     ])
+                                            //     aphtml =
+                                            //     `<option value="${datas[i]['id']}" selected>${datas[i]['plate']}</option>`;
+                                            // else
+                                            //     aphtml = '';
+                                            select.append(aphtml);
+
+
+                                        }
+                                    },
+                                })
+
+
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error loading transportation data:', error);
+                            }
+                        });
+
+                    });
                     this.editStatus = false;
                     $('#modal-primary').modal();
 
                 },
-                editData(event, row) {
-                    this.data = this.datas[row];
-                    console.log(event);
-                    // this.data = data;
 
-                    this.editStatus = true;
-                    $('#modal-primary').modal();
-                },
-                deleteData(event, id) {
-                    // this.actionUrl = '{{ url('authors') }}' + '/' + id;
-                    if (confirm("wanna delete this one?")) {
-                        $(event.target).parents('tr').remove();
-                        axios.post(this.actionUrl + '/' + id, {
-                            _method: 'DELETE'
-                        }).then(response => {
-                            // location.reload();
-                            alert("data have been deleted")
-                        })
-                    }
-                    console.log(id);
-                },
                 submitForm(event, id) {
                     event.preventDefault();
                     const _this = this;
@@ -339,9 +376,9 @@
                     });
                 },
             },
-    });
-</script>
-{{-- <script type="text/javascript">
+        });
+    </script>
+    {{-- <script type="text/javascript">
     var controller = new Vue({
         el: '#controller',
         data: {
