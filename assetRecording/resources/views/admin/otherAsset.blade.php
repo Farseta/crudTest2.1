@@ -108,11 +108,11 @@
                                 <div class="mb-3">
                                     <label for="pict" class="form-label">Default file input example</label>
                                     <input type="hidden" name="oldPict" id="oldPict" v-if='editStatus'
-                                        :value="data.pict" >
+                                        :value="data.pict">
                                     <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;"
                                         :src="anotherUrl">
                                     <input class="form-control" type="file" id="pict" name="pict"
-                                        onchange="previewImage()" >
+                                        onchange="previewImage()">
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,9 @@
                     //  masih error gak tau tar di cari
                     return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
                     <a href="#" class="btn btn-info" onclick="controller.viewData(event,${meta.row})">view</a>
-              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+                    <a href="#" class="btn btn-success" onclick="controller.downloadData(event,${meta.row})">print</a>
+              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>
+              `;
                 },
                 orderable: false,
                 width: '200px',
@@ -244,6 +246,7 @@
                 },
                 addData() {
                     this.data = {};
+                    this.actionUrl = '{{ url('otherAssets') }}' ;
                     this.anotherUrl = "{{ asset('storage/post-images/dummy1.png') }}";
                     this.editStatus = false;
                     $('#modal-primary').modal();
@@ -278,6 +281,31 @@
                     // console.log(anotherUrl);
                     console.log(this.data);
                 },
+                downloadData(event, row) {
+                    this.data = this.datas[row];
+                    this.actionUrl = '{{ url('otherAssets') }}' + '/' + this.data.id;
+                    this.anotherUrl = "{{ asset('storage') }}" + "/" + this.data.pict;
+                    console.log(row);
+                    console.log(this.data);
+                    let name = this.data.type + ".pdf";
+                    console.log(name);
+                    axios({
+                        url: this.anotherUrl,
+                        method: 'GET',
+                        responseType: 'blob', // Menerima respon sebagai blob (binary data)
+                    }).then(response => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', name); // Nama file yang akan diunduh
+                        document.body.appendChild(link);
+                        link.click();
+                        window.URL.revokeObjectURL(url);
+                    }).catch(error => {
+                        console.error('Error downloading PDF:', error);
+                        // Tambahkan penanganan kesalahan sesuai kebutuhan Anda
+                    });
+                },
                 submitForm(event, id) {
                     event.preventDefault();
 
@@ -287,9 +315,11 @@
                     console.log(this.editStatus);
                     // var  anotherUrl = !this.editStatus ? this.anotherUrl : this.anotherUrl + '/' + id;
                     // console.log(this.anotherUrl);
-                    axios.post(actionUrl, new FormData($(event.target)[0]), {headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }}).then(response => {
+                    axios.post(actionUrl, new FormData($(event.target)[0]), {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(response => {
                         $('#modal-primary').modal('hide');
                         _this.table.ajax.reload();
                     });
