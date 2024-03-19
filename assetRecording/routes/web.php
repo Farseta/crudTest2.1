@@ -17,9 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' =>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/verify', App\Http\Controllers\Auth\VerificationController::class);
 
 // otherAsset start
 Route::resource('/otherAssets',App\Http\Controllers\Other_assetController::class);
