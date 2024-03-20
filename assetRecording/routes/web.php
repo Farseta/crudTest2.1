@@ -20,7 +20,9 @@ Route::get('/', function () {
 Auth::routes(['verify' =>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/verify', App\Http\Controllers\Auth\VerificationController::class);
+
+// for verify page after register
+Route::get('verify', function () {return view('auth.verify');})->name('verification.notice');
 
 // otherAsset start
 Route::resource('/otherAssets',App\Http\Controllers\Other_assetController::class);
