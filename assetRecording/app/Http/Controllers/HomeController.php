@@ -28,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $transportation_for_toasts = Transportation::all();
         $transportation_total = Transportation::count();
         $transportation_ready = Transportation::where('status', 'ready')->count();
         $transportation_unready = Transportation::where('status', 'unready')->count();
@@ -56,6 +57,6 @@ class HomeController extends Controller
             $data_bar[$key]['data'] = $data_month;
         }
         // return $data_bar;
-        return view('home', compact('transportation_total', 'other_asset_total', 'transportation_ready', 'transportation_unready','data_bar'));
+        return view('home', compact('transportation_total', 'other_asset_total', 'transportation_ready', 'transportation_unready','data_bar','transportation_for_toasts'));
     }
 }

@@ -15,6 +15,10 @@
   
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
   @yield("CSS")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -24,7 +28,7 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake " src="assets/dist/img/logo2.png" alt="gansop" height="700" width="500">
   </div>
-
+  
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -208,6 +212,7 @@
 
     <!-- Main content -->
     <section class="content">
+      
       @yield('content')
           
     </section>
@@ -246,6 +251,13 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 {{-- CDN axios JS --}}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="{{asset('assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('assets/plugins/toastr/toastr.min.js')}}"></script>
+
+
 @yield("JS")
 </body>
 </html>

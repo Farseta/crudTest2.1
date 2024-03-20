@@ -337,6 +337,24 @@
             }
         });
     </script>
+    {{-- <script>
+        $(document).ready(function() {
+      $(document).Toasts('create', {
+        class: 'bg-info',
+        title: 'Info Pajak',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $(document).ready(function() {
+      $(document).Toasts('create', {
+        class: 'bg-info',
+        title: 'Info Ganti Oli',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    </script> --}}
     {{-- <script type="text/javascript">
         var controller = new Vue({
             el: '#controller',

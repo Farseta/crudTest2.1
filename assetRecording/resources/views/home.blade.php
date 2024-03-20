@@ -2,8 +2,8 @@
 
 
 @section('CSS')
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 @endsection
 
 @section('title')
@@ -19,74 +19,78 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-3 col-12">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3>
-                    {{("$transportation_total")}}
-                  </h3>
-  
-                  <p>Total transportasi dimiliki</p>
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>
+                            {{ "$transportation_total" }}
+                        </h3>
+
+                        <p>Total transportasi dimiliki</p>
+                    </div>
+                    <div class="icon">
+                        <i><ion-icon name="car-outline"></ion-icon></i>
+
+                    </div>
+                    <a href="{{ url('transportations') }}" class="small-box-footer">ke aset mobil <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
-                <div class="icon">
-                    <i><ion-icon name="car-outline"></ion-icon></i>
-                    
-                </div>
-                <a href="{{url('transportations')}}" class="small-box-footer">ke aset mobil <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-12">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h3>
-                    {{("$transportation_ready")}}
-                  </h3>
-  
-                  <p>Transportasi siap dipakai</p>
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>
+                            {{ "$transportation_ready" }}
+                        </h3>
+
+                        <p>Transportasi siap dipakai</p>
+                    </div>
+                    <div class="icon">
+                        <i><ion-icon name="thumbs-up-outline"></ion-icon></i>
+                    </div>
+                    <a href="{{ url('vehicleLends') }}" class="small-box-footer">ke peminjaman mobil <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
-                <div class="icon">
-                    <i><ion-icon name="thumbs-up-outline"></ion-icon></i>
-                </div>
-                <a href="{{url('vehicleLends')}}" class="small-box-footer">ke peminjaman mobil <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-12">
                 <!-- small box -->
                 <div class="small-box bg-danger">
-                  <div class="inner">
-                    <h3>
-                      {{("$transportation_unready")}}
-                    </h3>
-    
-                    <p>Transportasi sedang dipakai</p>
-                  </div>
-                  <div class="icon">
-                    <i><ion-icon name="thumbs-down-outline"></ion-icon></i>
-                  </div>
-                  <a href="{{url('vehicleReturns')}}" class="small-box-footer">ke pengembalian mobil <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="inner">
+                        <h3>
+                            {{ "$transportation_unready" }}
+                        </h3>
+
+                        <p>Transportasi sedang dipakai</p>
+                    </div>
+                    <div class="icon">
+                        <i><ion-icon name="thumbs-down-outline"></ion-icon></i>
+                    </div>
+                    <a href="{{ url('vehicleReturns') }}" class="small-box-footer">ke pengembalian mobil <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
-              </div>
-              <div class="col-lg-3 col-12">
+            </div>
+            <div class="col-lg-3 col-12">
                 <!-- small box -->
                 <div class="small-box bg-info">
-                  <div class="inner">
-                    <h3>
-                      {{("$other_asset_total")}}
-                    </h3>
-    
-                    <p>Total Asset</p>
-                  </div>
-                  <div class="icon">
-                    <i><ion-icon name="reader-outline"></ion-icon></i>
-                  </div>
-                  <a href="{{url('otherAssets')}}" class="small-box-footer">ke asset lainnya <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="inner">
+                        <h3>
+                            {{ "$other_asset_total" }}
+                        </h3>
+
+                        <p>Total Asset</p>
+                    </div>
+                    <div class="icon">
+                        <i><ion-icon name="reader-outline"></ion-icon></i>
+                    </div>
+                    <a href="{{ url('otherAssets') }}" class="small-box-footer">ke asset lainnya <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
-              </div>
+            </div>
             <!-- ./col -->
-          </div>
+        </div>
         <!-- BAR CHART -->
         <div class="card card-success">
             <div class="card-header">
@@ -107,7 +111,7 @@
                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>
-            <a href="{{url('print')}}" class="btn btn-primary"> cetak data</a>
+            <a href="{{ url('print') }}" class="btn btn-primary"> cetak data</a>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
@@ -115,25 +119,27 @@
 @endsection
 
 @section('JS')
-<!-- jQuery -->
-<script src={{ asset("assets/plugins/jquery/jquery.min.js")}}></script>
-<!-- Bootstrap 4 -->
+    <!-- jQuery -->
+    <script src={{ asset('assets/plugins/jquery/jquery.min.js') }}></script>
+    <!-- Bootstrap 4 -->
 
-<script src={{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
- <!-- ChartJS -->
-<script src={{ asset("assets/plugins/chart.js/Chart.min.js")}}></script>
+    <script src={{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}></script>
+    <!-- ChartJS -->
+    <script src={{ asset('assets/plugins/chart.js/Chart.min.js') }}></script>
 
 
     <script type="text/javascript">
-    var data_bar = '{!! json_encode($data_bar)!!}';
-    
+        var data_bar = '{!! json_encode($data_bar) !!}';
 
-    var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July','Agustus','September','October','November','December'],
-      datasets: JSON.parse(data_bar),
-    }
 
-    
+        var areaChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agustus', 'September', 'October',
+                'November', 'December'
+            ],
+            datasets: JSON.parse(data_bar),
+        }
+
+
         //-------------
         //- BAR CHART -
         //-------------
@@ -155,5 +161,42 @@
             data: barChartData,
             options: barChartOptions
         })
+    </script>
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-start',
+                showConfirmButton: false,
+                timer: 10000,
+                customClass: {
+                    title: 'text-center'
+                }
+            });
+
+            Toast.fire({
+                icon: 'info',
+                title: 'now you are loggin as ' + "{{ auth()->user()->name }}",
+                html: `
+                
+                  @foreach ($transportation_for_toasts as $key => $transportation)
+                  <b> 
+                    <td class="text-center">
+                      {{ $transportation->brand }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->plate }} -
+                    </td>
+                    <td class="text-center">
+                      {{ date('d/M/Y', strtotime($transportation->updated_at)) }}
+                    </td>
+                    </br>
+                  </b>
+                  @endforeach
+                 </br> for update the data going to
+                <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+            });
+
+        });
     </script>
 @endsection
