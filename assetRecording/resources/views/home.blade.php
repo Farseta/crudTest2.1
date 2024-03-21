@@ -168,7 +168,7 @@
                 toast: true,
                 position: 'top-start',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 20000,
                 customClass: {
                     title: 'text-center'
                 }
@@ -178,8 +178,10 @@
                 icon: 'info',
                 title: 'now you are loggin as ' + "{{ auth()->user()->name }}",
                 html: `
+                <h3>Pajak Mobil </h3>
                 
                   @foreach ($transportation_for_toasts as $key => $transportation)
+                  @if(date_left($transportation->tax_date) ==true )
                   <b> 
                     <td class="text-center">
                       {{ $transportation->brand }} -
@@ -188,11 +190,34 @@
                       {{ $transportation->plate }} -
                     </td>
                     <td class="text-center">
-                      {{ date('d/M/Y', strtotime($transportation->updated_at)) }}
+                      {{ $transportation->tax_date}}
                     </td>
                     </br>
                   </b>
+                  @endif
+                  
                   @endforeach
+                  <h3>Ganti Oli Mobil </h3>
+                
+                  @foreach ($transportation_for_toasts as $key => $transportation)
+                  @if(date_left($transportation->oil_date) ==true )
+                  <b> 
+                    <td class="text-center">
+                      {{ $transportation->brand }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->plate }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->oil_date}}
+                    </td>
+                    </br>
+                  </b>
+                  @endif
+                  
+                  @endforeach
+                
+                
                  </br> for update the data going to
                 <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
             });

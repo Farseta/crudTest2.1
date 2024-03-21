@@ -56,6 +56,7 @@ class HomeController extends Controller
             
             $data_bar[$key]['data'] = $data_month;
         }
+        
         // return $data_bar;
         return view('home', compact('transportation_total', 'other_asset_total', 'transportation_ready', 'transportation_unready','data_bar','transportation_for_toasts'));
     }
