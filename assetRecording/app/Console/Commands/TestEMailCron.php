@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
-
+use App\Models\Transportation;
 use Carbon\Carbon;
 use App\Mail\TaxNotificationEmail;
 use Illuminate\Support\Facades\Mail;
@@ -35,7 +35,17 @@ class DemoCron extends Command
         // Sample
         Log::info("Cron job Berhasil di jalankan " . date('Y-m-d H:i:s'));
         $user = User::find(10);
-        Mail::to($user->email)->send(new TaxNotificationEmail());
+        $transportations =Transportation::all();
+        $condition = false;
+        foreach($transportations as $transportation){
+            if(date_left($transportation->oil_date) ==true ||date_left($transportation->tax_date) ==true){
+                $condition = true;
+            }
+        }
+        if($condition == true){
+            Mail::to($user->email)->send(new TaxNotificationEmail());
+        }
+        // Mail::to($user->email)->send(new TaxNotificationEmail());
 
         // Kita bisa menyimpan logic disini
         // Contoh: Update data di database yang statusnya belum diproses selama 24 jam menjadi FAILED
