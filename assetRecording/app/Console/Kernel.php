@@ -4,15 +4,21 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Jobs\SendTaxNotificationEmail; 
 class Kernel extends ConsoleKernel
 {
     /**
      * Define the application's command schedule.
      */
+    protected $commands = [
+        Commands\DemoCron::class,
+    ];
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('demo:cron')
+            ->everyMinute();
+        // $schedule->job(new SendTaxNotificationEmail)->daily();
     }
 
     /**

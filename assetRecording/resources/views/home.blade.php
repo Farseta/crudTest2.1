@@ -166,9 +166,9 @@
         $(function() {
             var Toast = Swal.mixin({
                 toast: true,
-                position: 'top-start',
+                position: 'top-end',
                 showConfirmButton: false,
-                timer: 20000,
+                timer: 5000,
                 customClass: {
                     title: 'text-center'
                 }
