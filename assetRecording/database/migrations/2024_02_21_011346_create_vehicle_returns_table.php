@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('last_gas');
             $table->integer('last_km');
             $table->integer('gas_money');
-            $table->string('status');
+            $table->string('lending_status');
             $table->timestamps();
             $table->foreign('id_vehicle_lending')->references('id')->on('vehicle_lendings');
         });
