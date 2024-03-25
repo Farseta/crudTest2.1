@@ -16,8 +16,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->command('demo:cron')
+        //     ->everyMinute();
         $schedule->command('demo:cron')
-            ->everyMinute();
+            // ->dailyAt(time_convert("09:16"))
+            ->dailyAt("09:32")
+            ->timezone('Asia/Jakarta');
         // $schedule->job(new SendTaxNotificationEmail)->daily();
     }
 

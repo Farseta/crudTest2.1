@@ -29,4 +29,8 @@ function stint($value){
     $integer = (int)$value;
     return $integer;
 };
+function time_convert($value){
+    $waktu_akhir = date("H:i", strtotime($value. " - 7 hours"));
+    return $waktu_akhir;
+};
 ?>
