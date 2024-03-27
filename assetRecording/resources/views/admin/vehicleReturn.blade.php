@@ -38,7 +38,7 @@
                                     <th>Status</th>
                                     <th>dipinjam tanggal</th>
                                     <th>dikembalikan tanggal</th>
-                                    <th style="width: 40px">Aksi</th>
+                                    {{-- <th style="width: 40px">Aksi</th> --}}
                                 </tr>
                             </thead>
                             {{-- <tbody>
@@ -257,11 +257,11 @@
                 class: 'text-center',
                 orderable: true,
             },
-            {
-                render: function(index, row, data, meta) {
-                    return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
-                },
-            },
+            // {
+            //     render: function(index, row, data, meta) {
+            //         return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+            //     },
+            // },
         ];
     </script>
 

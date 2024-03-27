@@ -81,12 +81,13 @@
         </div>
         {{-- modals --}}
         <div class="modal fade" id="modal-primary">
-            <div class="modal-dialog modal-fullscreen" style="min-width:50%; min-height:50%;">
+            <div class="modal-dialog modal-fullscreen" style="min-width:70%; min-height:70%;">
                 <div class="modal-content bg-primary">
                     <form method="POST" :action="actionUrl" autocomplete="off" enctype="multipart/form-data"
                         @submit = "submitForm($event,data.id)">
                         <div class="modal-header">
-                            <h4 class="modal-title">Primary Modal</h4>
+                            <h4 class="modal-title" v-if='editStatus ===false'>Tambah Data Baru</h4>
+                            <h4 class="modal-title" v-if='editStatus'>Edit Data</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -105,8 +106,8 @@
                                     class="form-control">
                             </div> --}}
                             <div class="form-group">
-                                <div class="mb-3">
-                                    <label for="pict" class="form-label">Default file input example</label>
+                                <div class="mb-3" style="text-align: center;">
+                                    {{-- <label for="pict" class="form-label">Default file input example</label> --}}
                                     <input type="hidden" name="oldPict" id="oldPict" v-if='editStatus'
                                         :value="data.pict">
                                     <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;"
@@ -132,14 +133,19 @@
         <div class="modal fade" id="modal-info">
             <div class="modal-dialog modal-fullscreen" style="min-width:90%; min-height:90%;">
                 <div class="modal-content bg-info">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Info Modal</h4>
+                    <div class="modal-header" >
+                        
+                        <h4 class="modal-title" id="modal-title">
+                            {{-- {{modalTitle}} --}}
+                        </h4>
+                        
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" style="text-align: center;">
                         <form :action="actionUrl" autocomplete="off" enctype="multipart/form-data">
+                           
                             <embed :src="anotherUrl" alt="" style="width: 800px; height: 800px;">
                         </form>
 
@@ -222,6 +228,7 @@
                 apiUrl,
                 anotherUrl,
                 editStatus: false,
+                modalTitle: '',
             },
             mounted: function() {
                 this.datatable();
@@ -244,11 +251,22 @@
                         _this.datas = _this.table.ajax.json().data;
                     });
                 },
+                resetInputFile() {
+                    // Reset nilai input file
+                    const input = document.querySelector('#pict');
+                    input.value = ''; // Menghapus nilai yang dipilih
+                    // Sembunyikan preview gambar
+                    // const pictPreview = document.querySelector('.img-preview');
+                    // pictPreview.style.display = 'none';
+                },
                 addData() {
                     this.data = {};
-                    this.actionUrl = '{{ url('otherAssets') }}' ;
+                    this.actionUrl = '{{ url('otherAssets') }}';
                     this.anotherUrl = "{{ asset('storage/post-images/dummy1.png') }}";
                     this.editStatus = false;
+                    
+                    const pictPreview = document.querySelector('.img-preview');
+                    pictPreview.style.display = '{{ asset('storage/post-images/dummy1.png') }}';
                     $('#modal-primary').modal();
 
                 },
@@ -258,6 +276,7 @@
                     // this.data = data;
                     this.anotherUrl = "{{ asset('storage') }}" + "/" + this.data.pict;
                     this.editStatus = true;
+                    this.resetInputFile();
                     $('#modal-primary').modal();
                 },
                 deleteData(event, id) {
@@ -276,12 +295,18 @@
                 viewData(event, row) {
                     $('#modal-info').modal();
                     this.data = this.datas[row];
+                    this.modalTitle = this.data.type;
+                    $('#modal-title').empty();
+                    $('#modal-title').append('<h4 class="modal-title">' +this.modalTitle + '</h4>');
                     this.actionUrl = '{{ url('otherAssets') }}' + '/' + this.data.id;
                     this.anotherUrl = "{{ asset('storage') }}" + "/" + this.data.pict;
                     // console.log(anotherUrl);
+                    this.resetInputFile();
+                    console.log("testViewData");
                     console.log(this.data);
                 },
                 downloadData(event, row) {
+                    this.resetInputFile();
                     this.data = this.datas[row];
                     this.actionUrl = '{{ url('otherAssets') }}' + '/' + this.data.id;
                     this.anotherUrl = "{{ asset('storage') }}" + "/" + this.data.pict;
@@ -332,6 +357,7 @@
             const pict = document.querySelector('#pict');
             const pictPreview = document.querySelector('.img-preview');
             pictPreview.style.display = 'block';
+            pictPreview.style.margin = 'auto';
 
             const oFReader = new FileReader();
             oFReader.readAsDataURL(pict.files[0]);
