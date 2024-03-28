@@ -34,7 +34,7 @@ class DemoCron extends Command
     {
         // Sample
         Log::info("Cron job Berhasil di jalankan " . date('Y-m-d H:i:s'));
-        $user = User::find(10);
+        $user = User::find(1);
         $transportations =Transportation::all();
         $condition = false;
         foreach($transportations as $transportation){
