@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .body{
-            background-color: aqua;
-        }
+        
         .controller {
 
             justify-content: center;
@@ -149,7 +147,7 @@
             </table>
         </div>
         <div class="header4">
-            <h1 style="color: #f40a0a">Pajak Kendaraan Terlambat</h1>
+            <h1 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h1>
         </div>
         <div class="body4">
             <table class="table4">

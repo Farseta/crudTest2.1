@@ -4,6 +4,7 @@
 @section('CSS')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
 @section('title')
@@ -162,7 +163,7 @@
             options: barChartOptions
         })
     </script>
-    <script>
+    {{-- <script>
         $(function() {
             var Toast = Swal.mixin({
                 toast: true,
@@ -223,5 +224,89 @@
             });
 
         });
+    </script> --}}
+    <script>
+        Swal.fire({
+            icon: 'info',
+                title: 'now you are loggin as ' + "{{ auth()->user()->name }}",
+                html: `
+                <h3>Pajak Mobil </h3>
+                
+                  @foreach ($transportation_for_toasts as $key => $transportation)
+                  @if(date_left($transportation->tax_date) ==true )
+                  <b> 
+                    <td class="text-center">
+                      {{ $transportation->brand }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->plate }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->tax_date}}
+                    </td>
+                    </br>
+                  </b>
+                  @endif
+                  
+                  @endforeach
+                  <hr>
+                  <h3>Ganti Oli Mobil </h3>
+                
+                  @foreach ($transportation_for_toasts as $key => $transportation)
+                  @if(date_left($transportation->oil_date) ==true )
+                  <b> 
+                    <td class="text-center">
+                      {{ $transportation->brand }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->plate }} -
+                    </td>
+                    <td class="text-center">
+                      {{ $transportation->oil_date}}
+                    </td>
+                    </br>
+                  </b>
+                  @endif
+                  
+                  @endforeach
+                  <hr>
+                  <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
+                  @foreach ($transportation_for_toasts as $key => $transportation)
+                    @if (date_left2($transportation->tax_date) == true)
+                        <b>
+                            <td>
+                                {{ $transportation->brand }}
+                            </td>
+                            <td>
+                                {{ $transportation->plate }}
+                            </td>
+                            <td>
+                                {{ $transportation->tax_date }}
+                            </td>
+                            </br>
+                        </b>
+                    @endif
+                @endforeach
+                <hr>
+                <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
+                @foreach ($transportation_for_toasts as $key => $transportation)
+                    @if (date_left2($transportation->oil_date) == true)
+                        <b>
+                            <td>
+                                {{ $transportation->brand }}
+                            </td>
+                            <td>
+                                {{ $transportation->plate }}
+                            </td>
+                            <td>
+                                {{ $transportation->oil_date }}
+                            </td>
+                        </br>
+                        </b>
+                    @endif
+                @endforeach
+                 </br> for update the data going to
+                <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+});
     </script>
 @endsection
