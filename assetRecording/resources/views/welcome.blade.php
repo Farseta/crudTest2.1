@@ -58,6 +58,8 @@
             padding: 5%;
             height: 75%;
             color: aliceblue;
+            font-size: 100px;
+
         }
 
         .body hr {
@@ -99,14 +101,43 @@
         </div>
         <div class="body">
             <div class="row align-items-center">
-                <div class="col-4">
-                    <h1>Permudah Peminajam mobil dan Pengingat Perawatan Mobil</h1>
-                    <hr />
+                <div class="col-xl-8 col-sm-12">
+                    <h1 style="font-size: 70px; border-bottom: 10px solid rgb(199, 195, 195); padding-bottom:20px">
+                        Permudah Peminajam mobil dan Pengingat Perawatan Mobil</h1>
+                    {{-- <hr /> --}}
                 </div>
             </div>
 
         </div>
-        <div class="footer">
+
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark mb-3">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        @if (Route::has('login'))
+                            @auth
+                                <li class="nav-item">
+                                    <a href="{{ url('/home') }}" class="btn btn-outline-light rounded-pill">Home</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill">LOGIN</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('register') }}"
+                                            class="btn btn-outline-light rounded-pill">REGISTER</a>
+                                    </li>
+                                @endif
+                            @endauth
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {{-- <div class="footer">
             <ul type="none">
                 @if (Route::has('login'))
                     @auth
@@ -125,7 +156,7 @@
                     @endauth
                 @endif
             </ul>
-        </div>
+        </div> --}}
     </div>
 </body>
 

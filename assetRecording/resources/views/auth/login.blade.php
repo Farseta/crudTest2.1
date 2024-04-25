@@ -16,10 +16,11 @@
             @csrf
           <div class="input-group mb-3">
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
-
+            
             @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
+                    
                 </span>
             @enderror
             <div class="input-group-append">
