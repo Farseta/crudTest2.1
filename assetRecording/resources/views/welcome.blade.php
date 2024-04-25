@@ -12,6 +12,12 @@
     </script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    {{-- Google font: source monserat --}}
+    <link rel="stylesheet"
+        href="https://fonts.google.com/share?selection.family=Montserrat:ital,wght@0,100..900;1,100..900">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
@@ -32,6 +38,7 @@
             /* position: relative; */
             /* scroll-behavior: unset; */
             overflow: hidden;
+            font-family: 'Montserrat';
         }
 
 
@@ -55,6 +62,8 @@
             /* background-color: rgb(36, 212, 219); */
             display: flex;
             /* justify-content: center; */
+            /* text-align: center; */
+            /* align-items: center; */
             padding: 5%;
             height: 75%;
             color: aliceblue;
@@ -93,7 +102,7 @@
         <div class="header">
             <div class="row">
                 <div class="col-4">
-                    <h4><b>CAR LEASE NOTIFY</b></h4>
+                    <h4 ><b>CAR LEASE NOTIFY</b></h4>
                 </div>
             </div>
 
@@ -101,38 +110,43 @@
         </div>
         <div class="body">
             <div class="row align-items-center">
-                <div class="col-xl-8 col-sm-12">
-                    <h1 style="font-size: 70px; border-bottom: 10px solid rgb(199, 195, 195); padding-bottom:20px">
-                        Permudah Peminajam mobil dan Pengingat Perawatan Mobil</h1>
+                <div class=" col-sm-10 col-9">
+                    <h1 style="font-size: 5vw; border-bottom: 1vw solid rgb(199, 195, 195); padding-bottom:20px">
+                        Permudah Peminjaman Mobil dan Pengingat Perawatan Mobil</h1>
                     {{-- <hr /> --}}
                 </div>
+                {{-- <div class="col-sm-12 text-right"  style=" top: 0; right: 0;">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/home') }}" class="btn btn-outline-light rounded-pill ">Home</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill">LOGIN</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="btn btn-outline-light rounded-pill">REGISTER</a>
+                            @endif
+                        @endauth
+                    @endif
+                </div> --}}
             </div>
 
         </div>
 
-        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark mb-3">
-            <div class="container-fluid">
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark " style=" margin-top:0; padding-top:0;margin-bottom:0; padding-bottom:0;">
+            <div class="container-fluid" style=" margin-bottom:0; padding-bottom:0;">
 
-                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                    <ul class="navbar-nav">
+                <div class="navbar" id="navbarCollapse" >
+                    <div class="col-sm-12 text-right"  >
                         @if (Route::has('login'))
                             @auth
-                                <li class="nav-item">
-                                    <a href="{{ url('/home') }}" class="btn btn-outline-light rounded-pill">Home</a>
-                                </li>
+                                <a href="{{ url('/home') }}" class="btn btn-outline-light rounded-pill">Home</a>
                             @else
-                                <li class="nav-item">
-                                    <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill">LOGIN</a>
-                                </li>
+                                <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill">LOGIN</a>
                                 @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a href="{{ route('register') }}"
-                                            class="btn btn-outline-light rounded-pill">REGISTER</a>
-                                    </li>
+                                    <a href="{{ route('register') }}" class="btn btn-outline-light rounded-pill">REGISTER</a>
                                 @endif
                             @endauth
                         @endif
-                    </ul>
+                    </div>
                 </div>
             </div>
         </nav>

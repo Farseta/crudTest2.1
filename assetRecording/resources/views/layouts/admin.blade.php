@@ -94,7 +94,7 @@
     <!-- Brand Logo -->
     <a href="{{url('home')}}" class="brand-link">
       <img src="{{asset('assets/dist/img/logo2.png')}}" alt="AdminLTE Logo" class="brand-image-xl img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PGS</span>
+      <span class="brand-text font-weight-light"><b>C</b><b>L</b><b>N</b></span>
     </a>
 
     <!-- Sidebar -->
