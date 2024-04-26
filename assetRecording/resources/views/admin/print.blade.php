@@ -40,21 +40,21 @@
                     </div> --}}
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered" id="datatable">
+                        <table class="table table-bordered table-sm" id="datatable" style="width:10%;height: 70px;font-size:1vw;margin-left:30px;">
                             {{-- <h1 class="text-center"> judul</h1> --}}
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">No</th>
-                                    <th>Nama</th>
-                                    <th>plat nomor Mobil</th>
-                                    <th>brand Mobil</th>
-                                    <th>bensin terakhir</th>
-                                    <th>km terakhir</th>
-                                    <th>uang bensin</th>
-                                    <th>sisa uang bensin</th>
-                                    <th>Status</th>
-                                    <th>dipinjam tanggal</th>
-                                    <th>dikembalikan tanggal</th>
+                                    <th style="width: 10px" class="col-1">No</th>
+                                    <th class="col-1">Nama</th>
+                                    <th class="col-1">plat nomor Mobil</th>
+                                    <th class="col-1">brand Mobil</th>
+                                    <th class="col-1">bensin terakhir</th>
+                                    <th class="col-1">km terakhir</th>
+                                    <th class="col-1">uang bensin</th>
+                                    <th class="col-1">sisa uang bensin</th>
+                                    <th class="col-1">Status</th>
+                                    <th class="col-1">dipinjam tanggal</th>
+                                    <th class="col-1">dikembalikan tanggal</th>
                                     {{-- <th style="width: 40px">Aksi</th> --}}
                                 </tr>
                             </thead>
@@ -150,66 +150,77 @@
                 data: 'DT_RowIndex',
                 class: 'text-center',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "name",
                 class: 'text-center',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "plate",
                 class: 'text-center',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "brand",
                 class: 'text-center',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "last_gas",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "last_km",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "gas_money_last",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "gas_money",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "status_lending",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "date_convert_created_at_lending",
-                class: 'text-center',
+                class: 'text-center col-1',
                 orderable: true,
+                
             },
             {
                 // done
                 data: "date_convert_created_at",
-                class: 'text-center',
+                class: 'text-center col-md-2',
                 orderable: true,
+                
             },
             // {
             //     render: function(index, row, data, meta) {
