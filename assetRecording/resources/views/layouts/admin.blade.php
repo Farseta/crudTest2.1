@@ -139,7 +139,7 @@
                 <a href="#" class="nav-link {{request()->is('vehicleLends')? 'active' : ''}}">
                 <i class="nav-icon fas fa-folder"></i>
                 <p>
-                    peminjaman
+                    Peminjaman
                     <i class="right fas fa-angle-left"></i>
                 </p>
                 </a>

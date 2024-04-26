@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#" type="button" class="btn btn-primary" @click ="addData()">Buat data Baru</a>
+                        <a href="#" type="button" class="btn btn-primary" @click ="addData()">Buat data baru</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
@@ -28,12 +28,12 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
 
-                                    <th class="text-center">Nama pengguna</th>
-                                    <th class="text-center">brand transportasi</th>
-                                    <th class="text-center">Plat Nomor transportasi</th>
-                                    <th class="text-center">needs</th>
-                                    <th class="text-center">uang bensin</th>
-                                    <th class="text-center">status</th>
+                                    <th class="text-center">Nama Pengguna</th>
+                                    <th class="text-center">Brand Transportasi</th>
+                                    <th class="text-center">Plat Nomor Transportasi</th>
+                                    <th class="text-center">Keperluan</th>
+                                    <th class="text-center">Uang Bensin</th>
+                                    <th class="text-center">Status</th>
                                     <th style="width: 40px" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -151,7 +151,7 @@
                                 <input type="hidden" name="status_lending" id="status_lending" value="lend">
                             </div>
                             <div class="form-group">
-                                <label>Kebutuhan</label>
+                                <label>Keperluan Meminjam</label>
                                 <input type="text" name="needs" :value="data.needs" required=""
                                     class="form-control">
                             </div>

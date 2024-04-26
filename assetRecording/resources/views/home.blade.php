@@ -33,14 +33,14 @@
                         <i><ion-icon name="car-outline"></ion-icon></i>
 
                     </div>
-                    <a href="{{ url('transportations') }}" class="small-box-footer">ke aset mobil <i
+                    <a href="{{ url('transportations') }}" class="small-box-footer">Aset Mobil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-12">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-info">
                     <div class="inner">
                         <h3>
                             {{ "$transportation_ready" }}
@@ -51,14 +51,14 @@
                     <div class="icon">
                         <i><ion-icon name="thumbs-up-outline"></ion-icon></i>
                     </div>
-                    <a href="{{ url('vehicleLends') }}" class="small-box-footer">ke peminjaman mobil <i
+                    <a href="{{ url('vehicleLends') }}" class="small-box-footer">Peminjaman Mobil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-12">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-info">
                     <div class="inner">
                         <h3>
                             {{ "$transportation_unready" }}
@@ -69,7 +69,7 @@
                     <div class="icon">
                         <i><ion-icon name="thumbs-down-outline"></ion-icon></i>
                     </div>
-                    <a href="{{ url('vehicleReturns') }}" class="small-box-footer">ke pengembalian mobil <i
+                    <a href="{{ url('vehicleReturns') }}" class="small-box-footer">Pengembalian Mobil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <div class="icon">
                         <i><ion-icon name="reader-outline"></ion-icon></i>
                     </div>
-                    <a href="{{ url('otherAssets') }}" class="small-box-footer">ke asset lainnya <i
+                    <a href="{{ url('otherAssets') }}" class="small-box-footer">Asset Lainnya <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>
-            <a href="{{ url('print') }}" class="btn btn-primary"> cetak data</a>
+            <a href="{{ url('print') }}" class="btn btn-primary"> Cetak Data</a>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
@@ -228,13 +228,13 @@
     <script>
         Swal.fire({
             icon: 'info',
-                title: 'now you are loggin as ' + "{{ auth()->user()->name }}",
+                title: 'Selamat datang ' + "{{ auth()->user()->name }}",
                 html: `
                 <h3>Pajak Mobil </h3>
                 
                   @foreach ($transportation_for_toasts as $key => $transportation)
                   @if(date_left($transportation->tax_date) ==true )
-                  <b> 
+                   
                     <td class="text-center">
                       {{ $transportation->brand }} -
                     </td>
@@ -245,7 +245,7 @@
                       {{ $transportation->tax_date}}
                     </td>
                     </br>
-                  </b>
+                  
                   @endif
                   
                   @endforeach
@@ -254,18 +254,18 @@
                 
                   @foreach ($transportation_for_toasts as $key => $transportation)
                   @if(date_left($transportation->oil_date) ==true )
-                  <b> 
+                  
                     <td class="text-center">
-                      {{ $transportation->brand }} -
+                       | {{ $transportation->brand }} |
                     </td>
                     <td class="text-center">
-                      {{ $transportation->plate }} -
+                      {{ $transportation->plate }} |
                     </td>
                     <td class="text-center">
-                      {{ $transportation->oil_date}}
+                      {{ $transportation->oil_date}} |
                     </td>
                     </br>
-                  </b>
+                  
                   @endif
                   
                   @endforeach
@@ -273,39 +273,39 @@
                   <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
                   @foreach ($transportation_for_toasts as $key => $transportation)
                     @if (date_left2($transportation->tax_date) == true)
-                        <b>
+                        
                             <td>
-                                {{ $transportation->brand }}
+                                | {{ $transportation->brand }} |
                             </td>
                             <td>
-                                {{ $transportation->plate }}
+                                {{ $transportation->plate }} |
                             </td>
                             <td>
-                                {{ $transportation->tax_date }}
+                                {{ $transportation->tax_date }} |
                             </td>
                             </br>
-                        </b>
+                        
                     @endif
                 @endforeach
                 <hr>
                 <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
                 @foreach ($transportation_for_toasts as $key => $transportation)
                     @if (date_left2($transportation->oil_date) == true)
-                        <b>
+                        
                             <td>
-                                {{ $transportation->brand }}
+                               | {{ $transportation->brand }} |
                             </td>
                             <td>
-                                {{ $transportation->plate }}
+                                {{ $transportation->plate }} |
                             </td>
                             <td>
-                                {{ $transportation->oil_date }}
+                                {{ $transportation->oil_date }} |
                             </td>
                         </br>
-                        </b>
+                        
                     @endif
                 @endforeach
-                 </br> for update the data going to
+                 </br> Untuk mengupdate data pergi ke 
                 <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
 });
     </script>

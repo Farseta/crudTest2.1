@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#" type="button" class="btn btn-primary" @click= "addData()">Buat data Baru</a>
+                        <a href="#" type="button" class="btn btn-primary" @click= "addData()">Buat data baru</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
@@ -29,15 +29,15 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
                                     <th>Nama</th>
-                                    <th>plat nomor Mobil</th>
-                                    <th>brand Mobil</th>
-                                    <th>bensin terakhir</th>
-                                    <th>km terakhir</th>
-                                    <th>uang bensin</th>
-                                    <th>sisa uang bensin</th>
+                                    <th>Plat Nomor Mobil</th>
+                                    <th>Brand Mobil</th>
+                                    <th>Bensin Terakhir</th>
+                                    <th>KM Terakhir</th>
+                                    <th>Uang Bensin</th>
+                                    <th>Sisa Uang Bensin</th>
                                     <th>Status</th>
-                                    <th>dipinjam tanggal</th>
-                                    <th>dikembalikan tanggal</th>
+                                    <th>Dipinjam Tanggal</th>
+                                    <th>Dikembalikan Tanggal</th>
                                     {{-- <th style="width: 40px">Aksi</th> --}}
                                 </tr>
                             </thead>

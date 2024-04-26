@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#" type="button" class="btn btn-primary" @click="addData()">Buat data Baru</a>
+                        <a href="#" type="button" class="btn btn-primary" @click="addData()">Buat data baru</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">

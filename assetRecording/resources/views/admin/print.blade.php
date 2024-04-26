@@ -46,15 +46,15 @@
                                 <tr>
                                     <th style="width: 10px" class="col-1">No</th>
                                     <th class="col-1">Nama</th>
-                                    <th class="col-1">plat nomor Mobil</th>
-                                    <th class="col-1">brand Mobil</th>
-                                    <th class="col-1">bensin terakhir</th>
-                                    <th class="col-1">km terakhir</th>
-                                    <th class="col-1">uang bensin</th>
-                                    <th class="col-1">sisa uang bensin</th>
+                                    <th class="col-1">Plat Nomor Mobil</th>
+                                    <th class="col-1">Brand Mobil</th>
+                                    <th class="col-1">Bensin Terakhir</th>
+                                    <th class="col-1">KM Terakhir</th>
+                                    <th class="col-1">Uang Bensin</th>
+                                    <th class="col-1">Sisa Uang Bensin</th>
                                     <th class="col-1">Status</th>
-                                    <th class="col-1">dipinjam tanggal</th>
-                                    <th class="col-1">dikembalikan tanggal</th>
+                                    <th class="col-1">Dipinjam Tanggal</th>
+                                    <th class="col-1">Dikembalikan Tanggal</th>
                                     {{-- <th style="width: 40px">Aksi</th> --}}
                                 </tr>
                             </thead>

@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#" type="button" class="btn btn-primary" @click="addData()">Buat data Baru</a>
+                        <a href="#" type="button" class="btn btn-primary" @click="addData()">Buat data baru</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
@@ -30,7 +30,7 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
 
-                                    <th class="text-center">tipe</th>
+                                    <th class="text-center">Tipe</th>
 
                                     <th class="text-center">Tgl Dibuat</th>
                                     <th class="text-center">Tgl Diupdate</th>
@@ -206,8 +206,8 @@
                 render: function(index, row, data, meta) {
                     //  masih error gak tau tar di cari
                     return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
-                    <a href="#" class="btn btn-info" onclick="controller.viewData(event,${meta.row})">view</a>
-                    <a href="#" class="btn btn-success" onclick="controller.downloadData(event,${meta.row})">print</a>
+                    <a href="#" class="btn btn-info" onclick="controller.viewData(event,${meta.row})">View</a>
+                    <a href="#" class="btn btn-success" onclick="controller.downloadData(event,${meta.row})">Print</a>
               <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>
               `;
                 },
