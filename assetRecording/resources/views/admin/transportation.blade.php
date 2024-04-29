@@ -24,12 +24,12 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered" id="datatable">
+                        <table class="table table-bordered" id="datatable" >
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
 
-                                    <th class="text-center">tipe</th>
+                                    <th class="text-center">Tipe</th>
                                     <th class="text-center">Brand</th>
                                     <th class="text-center">Plat Nomor</th>
                                     <th class="text-center">Pajak Kendaraan</th>
