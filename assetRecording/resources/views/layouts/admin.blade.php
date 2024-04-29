@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
- 
+ {{-- Google font: source monserat --}}
+ <link rel="stylesheet" href="https://fonts.google.com/share?selection.family=Montserrat:ital,wght@0,100..900;1,100..900">
+
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   
@@ -19,6 +21,18 @@
   <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
+  <style>
+    #controller{
+      font-family: 'Montserrat';
+    }
+    nav{
+      font-family: 'Montserrat';
+    }
+    .main-sidebar{
+      font-family: 'Montserrat';
+    }
+
+  </style>
   @yield("CSS")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -102,7 +116,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('assets/dist/img/profile.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{auth()->user()->name}}</a>
