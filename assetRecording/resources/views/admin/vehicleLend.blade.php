@@ -204,32 +204,32 @@
             {
                 data: "name",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "brand",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "plate",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "needs",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "gas_money",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "status_lending",
                 class: "text-center",
-                orderable: true,
+                orderable: false,
             },
             {
                 render: function(index, row, data, meta) {
@@ -271,6 +271,7 @@
                             type: 'GET',
                         },
                         columns: columns,
+                        dom:"frtip",
                         // responsive: true,
 
                     }).on('xhr', function() {

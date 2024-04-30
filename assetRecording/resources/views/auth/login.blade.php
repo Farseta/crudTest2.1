@@ -10,7 +10,7 @@
         <a href="/" class="h1"><b>C</b>ar <b>L</b>ease <b>N</b>otify</a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Masuk Untuk Memulai...</p>
   
         <form action="{{route('login')}}" method="post">
             @csrf
@@ -23,11 +23,7 @@
                     
                 </span>
             @enderror
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
+            
           </div>
           <div class="input-group mb-3">
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
@@ -37,11 +33,7 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
+            
           </div>
           <div class="row">
             <div class="col-8">
@@ -49,7 +41,7 @@
                 <input  type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                 <label  for="remember">
-                    {{ __('Remember Me') }}
+                    {{ __('Ingat Saat Masuk') }}
                 </label>
               </div>
             </div>
@@ -68,11 +60,11 @@
   
         <p class="mb-1">
             <a  href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
+                {{ __('Lupa Sandi?') }}
             </a>
         </p>
         <p class="mb-0">
-          <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+          <a href="{{ route('register') }}" class="text-center">Daftar Akun Baru</a>
         </p>
       </div>
       <!-- /.card-body -->

@@ -190,7 +190,7 @@
             {
                 data: 'type',
                 class: 'text-center',
-                orderable: true,
+                orderable:false,
             },
             {
                 data: 'date_convert_created_at',
@@ -245,6 +245,7 @@
                             type: 'GET',
                         },
                         columns: columns,
+                        dom:"frtip",
                         // responsive: true,
 
                     }).on('xhr', function() {

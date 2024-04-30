@@ -38,7 +38,7 @@
                                     <th>Status</th>
                                     <th>Dipinjam Tanggal</th>
                                     <th>Dikembalikan Tanggal</th>
-                                    {{-- <th style="width: 40px">Aksi</th> --}}
+                                    <th style="width: 40px">Aksi</th>
                                 </tr>
                             </thead>
                             {{-- <tbody>
@@ -210,42 +210,42 @@
             {
                 data: "name",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "plate",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "brand",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "last_gas",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "last_km",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "gas_money_last",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "gas_money",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "lending_status",
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: "date_convert_created_at_lending",
@@ -257,11 +257,11 @@
                 class: 'text-center',
                 orderable: true,
             },
-            // {
-            //     render: function(index, row, data, meta) {
-            //         return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
-            //     },
-            // },
+            {
+                render: function(index, row, data, meta) {
+                    return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                },
+            },
         ];
     </script>
 
@@ -288,6 +288,7 @@
                             type: 'GET',
                         },
                         columns: columns,
+                        dom:"frtip",
                         // responsive: true,
 
                     }).on('xhr', function() {

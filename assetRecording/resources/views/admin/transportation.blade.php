@@ -204,42 +204,42 @@
             {
                 data: 'type',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'brand',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'plate',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'tax_date',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'oil_date',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'status',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'last_gas',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'last_km',
                 class: 'text-center',
-                orderable: true,
+                orderable: false,
             },
             {
                 data: 'date_convert_created_at',
@@ -255,7 +255,7 @@
                 render: function(index, row, data, meta) {
                     //  masih error gak tau tar di cari
                     return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
-              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+              <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Hapus</a>`;
                 },
                 orderable: false,
                 width: '200px',
@@ -290,6 +290,7 @@
                             type: 'GET',
                         },
                         columns: columns,
+                        dom:"frtip",
                         // responsive: true,
 
                     }).on('xhr', function() {
