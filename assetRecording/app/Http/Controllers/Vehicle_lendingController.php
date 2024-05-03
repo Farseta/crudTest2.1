@@ -60,6 +60,8 @@ class Vehicle_lendingController extends Controller
             'id_user'=>['required'],
             'id_transportation'=>['required'],
             'needs'=>['required'],
+            'nameCustomer'=>['required'],
+            'phoneNumber'=>['required'],
             'gas_money'=>['required'],
             'status' => ['required'],
             'status_lending' => ['required'],
@@ -101,6 +103,8 @@ class Vehicle_lendingController extends Controller
         $this->validate($request,[
             'id_user'=>['required'],
             'id_transportation'=>['required'],
+            'nameCustomer'=>['required'],
+            'phoneNumber'=>['required'],
             'needs'=>['required'],
             'gas_money'=>['required'],
             'status' => ['required'],

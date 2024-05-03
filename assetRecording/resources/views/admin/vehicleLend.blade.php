@@ -28,7 +28,9 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
 
-                                    <th class="text-center">Nama Pengguna</th>
+                                    <th class="text-center">Nama Admin</th>
+                                    <th class="text-center">Nama Peminjam</th>
+                                    <th class="text-center">Nomor Telepon Pengguna</th>
                                     <th class="text-center">Brand Transportasi</th>
                                     <th class="text-center">Plat Nomor Transportasi</th>
                                     <th class="text-center">Keperluan</th>
@@ -116,11 +118,21 @@
 
 
                             <div class="form-group">
-                                <label>Nama Peminjam</label>
+                                <label>Nama Admin</label>
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_user" name="id_user" required>
                                     <option value="{{ auth()->user()->id }}">{{ auth()->user()->name }}</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Peminjam</label>
+                                <input type="text" name="nameCustomer" :value="data.nameCustomer" required=""
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Telepon Peminjam</label>
+                                <input type="text" name="phoneNumber" :value="data.phoneNumber" required=""
+                                    class="form-control">
                             </div>
                             <div class="form-group" id="testReload">
                                 <label>Plat Nomor</label>
@@ -203,6 +215,16 @@
             },
             {
                 data: "name",
+                class: "text-center",
+                orderable: false,
+            },
+            {
+                data: "nameCustomer",
+                class: "text-center",
+                orderable: false,
+            },
+            {
+                data: "phoneNumber",
                 class: "text-center",
                 orderable: false,
             },

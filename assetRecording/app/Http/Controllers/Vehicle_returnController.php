@@ -31,6 +31,14 @@ class Vehicle_returnController extends Controller
         ->addColumn('name',function($vehicle_returns){
             return $vehicle_returns->vehicle_lending->user->name;
         })
+        // name customer
+        ->addColumn('nameCustomer',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->nameCustomer;
+        })
+        // phone Number Customer
+        ->addColumn('phoneNumber',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->phoneNumber;
+        })
         // brand transportasi
         ->addColumn('brand',function($vehicle_returns){
             return $vehicle_returns->vehicle_lending->transportation->brand;

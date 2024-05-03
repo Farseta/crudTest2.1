@@ -29,6 +29,8 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
                                     <th>Nama</th>
+                                    <th>Nama Peminjam</th>
+                                    <th>Nomor Telepon Peminjam</th>
                                     <th>Plat Nomor Mobil</th>
                                     <th>Brand Mobil</th>
                                     <th>Bensin Terakhir</th>
@@ -213,6 +215,16 @@
                 orderable: false,
             },
             {
+                data: "nameCustomer",
+                class: "text-center",
+                orderable: false,
+            },
+            {
+                data: "phoneNumber",
+                class: "text-center",
+                orderable: false,
+            },
+            {
                 data: "plate",
                 class: 'text-center',
                 orderable: false,
@@ -261,11 +273,11 @@
                 render: function(index, row, data, meta) {
                     return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
                 },
-                data:null,
+                data: null,
                 orderable: false,
                 width: '200px',
                 class: 'text-center'
-                
+
             },
         ];
     </script>
@@ -293,7 +305,7 @@
                             type: 'GET',
                         },
                         columns: columns,
-                        dom:"frtip",
+                        dom: "frtip",
                         responsive: true,
 
                     }).on('xhr', function() {
@@ -330,12 +342,13 @@
                                                     if (datas1[i][
                                                             'id_transportation'
                                                         ] === datas[j]['id']) {
-                                                        aphtml = `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
+                                                        aphtml =
+                                                            `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
                                                         console.log(datas1[i][
                                                             'id_transportation'
                                                         ]);
                                                         select.append(aphtml);
-                                                            
+
                                                     } else
                                                         aphtml = '';
                                                 }
@@ -356,6 +369,8 @@
 
 
                                         }
+
+
                                     },
                                 })
 

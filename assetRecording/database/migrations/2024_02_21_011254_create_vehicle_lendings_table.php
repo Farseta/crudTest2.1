@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_transportation');
+            $table->string('nameCustomer');
+            $table->string('phoneNumber');
             $table->string('needs');
             $table->integer('gas_money');
             $table->string('status_lending');
