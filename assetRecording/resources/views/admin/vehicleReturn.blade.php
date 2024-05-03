@@ -261,6 +261,11 @@
                 render: function(index, row, data, meta) {
                     return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
                 },
+                data:null,
+                orderable: false,
+                width: '200px',
+                class: 'text-center'
+                
             },
         ];
     </script>
@@ -289,7 +294,7 @@
                         },
                         columns: columns,
                         dom:"frtip",
-                        // responsive: true,
+                        responsive: true,
 
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;

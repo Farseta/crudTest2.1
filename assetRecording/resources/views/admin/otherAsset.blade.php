@@ -146,7 +146,7 @@
                     <div class="modal-body" style="text-align: center;">
                         <form :action="actionUrl" autocomplete="off" enctype="multipart/form-data">
                            
-                            <embed :src="anotherUrl" alt="" style="width: 800px; height: 800px;">
+                            <embed :src="anotherUrl" alt="" style="max-width: 90%;min-width:350px ;max-height: 90%;min-height:600px ">
                         </form>
 
                     </div>
@@ -211,6 +211,7 @@
               <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>
               `;
                 },
+                data:null,
                 orderable: false,
                 width: '200px',
                 class: 'text-center'
@@ -246,7 +247,7 @@
                         },
                         columns: columns,
                         dom:"frtip",
-                        // responsive: true,
+                        responsive: true,
 
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;

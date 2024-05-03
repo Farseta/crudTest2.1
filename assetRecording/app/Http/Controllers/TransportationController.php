@@ -19,6 +19,9 @@ class TransportationController extends Controller
     public function api(){
         $transportations = Transportation::all();
         $datatables = datatables()->of($transportations)
+        ->addColumn('detail',function(){
+            return '';
+        })
         ->addColumn('date_convert_created_at',function($transportations){
             return date_convert($transportations->created_at);
         })

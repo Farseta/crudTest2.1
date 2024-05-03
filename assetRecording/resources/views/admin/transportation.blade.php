@@ -27,6 +27,7 @@
                         <table class="table table-bordered" id="datatable" >
                             <thead>
                                 <tr>
+                                    <th style="width: 10px"></th>
                                     <th style="width: 10px">No</th>
 
                                     <th class="text-center">Tipe</th>
@@ -196,7 +197,13 @@
     <script type="text/javascript">
         var actionUrl = "{{ url('transportations') }}";
         var apiUrl = "{{ url('api/transportations') }}";
-        var columns = [{
+        var columns = [
+            {
+                data: 'detail',
+                class: 'text-center text-align center',
+                orderable: false,
+            },
+            {
                 data: 'DT_RowIndex',
                 class: 'text-center',
                 orderable: true,
@@ -253,10 +260,11 @@
             },
             {
                 render: function(index, row, data, meta) {
-                    //  masih error gak tau tar di cari
+            //          masih error gak tau tar di cari
                     return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
               <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Hapus</a>`;
                 },
+                data:null,
                 orderable: false,
                 width: '200px',
                 class: 'text-center'
@@ -291,10 +299,11 @@
                         },
                         columns: columns,
                         dom:"frtip",
-                        // responsive: true,
+                        responsive: true
 
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;
+                        
                     });
                 },
                 addData() {

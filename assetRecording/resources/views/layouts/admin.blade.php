@@ -12,8 +12,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     {{-- Google font: source monserat --}}
-    <link rel="stylesheet"
-        href="https://fonts.google.com/share?selection.family=Montserrat:ital,wght@0,100..900;1,100..900">
+    {{-- <link rel="stylesheet"
+        href="https://fonts.google.com/share?selection.family=Montserrat:ital,wght@0,100..900;1,100..900"> --}}
 
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
@@ -25,7 +25,7 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
     <style>
-        #controller {
+        /* #controller {
             font-family: 'Montserrat';
             font-size: 1.1vw;
         }
@@ -41,7 +41,7 @@
         .btn {
             font-family: 'Montserrat';
             font-size: 1.1vw;
-        }
+        } */
 
         @media screen and (max-width: 900px) {
             .btn {
@@ -292,6 +292,8 @@
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     {{-- CDN VUE JS --}}
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="public\assets\plugins\codemirror\mode\vue\vue.js"></script>
+    {{-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> --}}
     {{-- CDN axios JS --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 

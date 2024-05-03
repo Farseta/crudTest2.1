@@ -242,6 +242,7 @@
                     }
 
                 },
+                data:null,
                 orderable: false,
                 width: '200px',
                 class: 'text-center',
@@ -272,7 +273,7 @@
                         },
                         columns: columns,
                         dom:"frtip",
-                        // responsive: true,
+                        responsive: true,
 
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;

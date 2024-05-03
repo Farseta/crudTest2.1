@@ -22,6 +22,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
 
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <style>
         .controller {
             /* background-color: rgb(157, 40, 40); */
@@ -102,7 +106,7 @@
         <div class="header">
             <div class="row">
                 <div class="col-4">
-                    <h4 ><b>CAR LEASE NOTIFY</b></h4>
+                    <h4><b>CAR LEASE NOTIFY</b></h4>
                 </div>
             </div>
 
@@ -131,18 +135,21 @@
 
         </div>
 
-        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark " style=" margin-top:0; padding-top:0;margin-bottom:0; padding-bottom:0;">
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark "
+            style=" margin-top:0; padding-top:0;margin-bottom:0; padding-bottom:0;">
+            <a href="#"></a>
             <div class="container-fluid" style=" margin-bottom:0; padding-bottom:0;">
 
-                <div class="navbar" id="navbarCollapse" >
-                    <div class="col-sm-12 text-right"  >
+                <div class="navbar" id="navbarCollapse">
+                    <div class="col-sm-12 text-right">
                         @if (Route::has('login'))
                             @auth
                                 <a href="{{ url('/home') }}" class="btn btn-outline-light rounded-pill">Home</a>
                             @else
                                 <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill">LOGIN</a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="btn btn-outline-light rounded-pill">REGISTER</a>
+                                    <a href="{{ route('register') }}"
+                                        class="btn btn-outline-light rounded-pill">REGISTER</a>
                                 @endif
                             @endauth
                         @endif
