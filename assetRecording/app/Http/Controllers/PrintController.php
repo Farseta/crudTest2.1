@@ -58,7 +58,19 @@ class PrintController extends Controller
         ->addColumn('status_lending',function( $vehicle_returns){
             return  $vehicle_returns->vehicle_lending->status_lending;
         })
-        
+
+        // nama user return
+        ->addColumn('nameReturn',function($vehicle_returns){
+            return $vehicle_returns->user->name;
+        })
+        // nama peminjam
+        ->addColumn('nameCustomer',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->nameCustomer;
+        })
+        // nomor hp peminjam
+        ->addColumn('phoneNumber',function($vehicle_returns){
+            return $vehicle_returns->vehicle_lending->phoneNumber;
+        })
         // // vehicle_lending created_at
         // ->addColumn('created_at_lending',function($vehicle_returns){
         //     return $vehicle_returns->vehicle_lending->created_at;

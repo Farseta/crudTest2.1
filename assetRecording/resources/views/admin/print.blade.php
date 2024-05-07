@@ -45,7 +45,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px" class="col-1">No</th>
-                                    <th class="col-1">Nama</th>
+                                    <th class="col-1">Nama Admin Penerima</th>
+                                    <th class="col-1">Nama Admin Penerima2</th>
+                                    <th class="col-1">Nama peminjam</th>
+                                    <th class="col-1">Nomor telepon</th>
                                     <th class="col-1">Plat Nomor Mobil</th>
                                     <th class="col-1">Brand Mobil</th>
                                     <th class="col-1">Bensin Terakhir</th>
@@ -155,6 +158,27 @@
             {
                 // done
                 data: "name",
+                class: 'text-center',
+                orderable: true,
+                
+            },
+            {
+                // done
+                data: "nameReturn",
+                class: 'text-center',
+                orderable: true,
+                
+            },
+            {
+                // done
+                data: "nameCustomer",
+                class: 'text-center',
+                orderable: true,
+                
+            },
+            {
+                // done
+                data: "phoneNumber",
                 class: 'text-center',
                 orderable: true,
                 
