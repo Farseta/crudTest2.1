@@ -126,12 +126,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Nama Peminjam</label>
-                                <input type="text" name="nameCustomer" :value="data.nameCustomer" required=""
+                                <input type="text" name="nameCustomer" id="nameCustomer" :value="data.nameCustomer" required=""
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Nomor Telepon Peminjam</label>
-                                <input type="text" name="phoneNumber" :value="data.phoneNumber" required=""
+                                <input type="text" name="phoneNumber" id="phoneNumber" :value="data.phoneNumber" required=""
                                     class="form-control">
                             </div>
                             <div class="form-group" id="testReload">
@@ -260,7 +260,7 @@
                         return `ending`;
                     } else {
                         return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
-                        <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Delete</a>`;
+                        <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Cancel</a>`;
                     }
 
                 },

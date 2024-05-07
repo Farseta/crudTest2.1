@@ -127,6 +127,8 @@ class Vehicle_lendingController extends Controller
         // return "benar";
         $vehicle_lending->update([
             'id_user'=>$request->get('id_user'),
+            'nameCustomer'=>$request->get('nameCustomer'),
+            'phoneNumber'=>$request->get('phoneNumber'),
             'id_transportation'=>$request->get('id_transportation'),
             'needs'=>$request->get('needs'),
             'gas_money'=>$request->get('gas_money'),
@@ -154,6 +156,7 @@ class Vehicle_lendingController extends Controller
         ]);
         Vehicle_return::create([
             'id_vehicle_lending'=> $id,
+            'id_user_return' =>auth()->user()->id,
             'last_gas' => $transportation->last_gas,
             'last_km' => $transportation->last_km,
             'gas_money' => $vehicle_lending->gas_money,

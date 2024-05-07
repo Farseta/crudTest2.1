@@ -16,7 +16,7 @@ class Vehicle_returnController extends Controller
      */
     public function index()
     {
-        $vehicle_returns= Vehicle_return::with('vehicle_lending')->get();
+        $vehicle_returns= Vehicle_return::with('vehicle_lending','user')->get();
         // return $vehicle_returns;
         $transportations = Transportation::all();
         $users = User::all();
@@ -30,6 +30,10 @@ class Vehicle_returnController extends Controller
         // name user
         ->addColumn('name',function($vehicle_returns){
             return $vehicle_returns->vehicle_lending->user->name;
+        })
+        // name user return
+        ->addColumn('name_return',function($vehicle_returns){
+            return $vehicle_returns->user->name;
         })
         // name customer
         ->addColumn('nameCustomer',function($vehicle_returns){
@@ -93,6 +97,7 @@ class Vehicle_returnController extends Controller
         $transportations = Transportation::find($vehicle_lendings->id_transportation);
         $this ->validate($request,[
             'id_vehicle_lending'=>['required'],
+            'id_user'=>['required'],
             'last_gas'=>['required'],
             'last_km'=>['required'],
             'gas_money'=>['required'],
@@ -106,7 +111,15 @@ class Vehicle_returnController extends Controller
             'last_km'=>$request->get('last_km'),
             'last_gas'=>$request->get('last_gas'),
         ]);
-        Vehicle_return::create($request->all());
+        Vehicle_return::create([
+            'id_vehicle_lending'=>$request->get('id_vehicle_lending'),
+            'id_user_return'=>$request->get('id_user'),
+            'last_gas'=>$request->get('last_gas'),
+            'last_km'=>$request->get('last_km'),
+            'gas_money'=>$request->get('gas_money'),
+            'lending_status'=>$request->get('lending_status'),
+            // $request->all()
+        ]);
         return redirect('vehicleReturns');
     }
 
@@ -134,6 +147,7 @@ class Vehicle_returnController extends Controller
         $vehicle_lendings = Vehicle_lending::all();
         $this ->validate($request,[
             'id_vehicle_lending'=>['required'],
+            'id_user_return'=>['required'],
             'last_gas'=>['required'],
             'last_km'=>['required'],
             'gas_money'=>['required'],

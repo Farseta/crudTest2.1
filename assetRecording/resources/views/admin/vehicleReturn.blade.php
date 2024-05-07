@@ -113,7 +113,7 @@
         <div class="modal fade" id="modal-primary">
             <div class="modal-dialog">
                 <div class="modal-content bg-primary">
-                    <form method="POST" :action="actionUrl" autocomplete="off">
+                    <form method="POST" :action="actionUrl" autocomplete="off" id="modalForm">
                         <div class="modal-header">
                             <h4 class="modal-title">Form Pengembalian Mobil</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -124,16 +124,39 @@
                             @csrf
                             <input type="hidden" name="_method" value="PUT" v-if='editStatus'>
                             <div class="form-group">
-                                <label>Nama Peminjam</label>
+                                <label>Nama Admin</label>
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_user" name="id_user" required>
                                     <option value="{{ auth()->user()->id }}">{{ auth()->user()->name }}</option>
                                 </select>
                             </div>
+
+
+
+                            <div class="form-group">
+                                <label>Nama Peminjam</label>
+                                <select class="custom-select form-control " aria-label="Default select example"
+                                    id="nameCustomer" name="nameCustomer" required onchange="testFungtion()">
+                                    <option value=""></option>
+                                    {{-- <option value="{{ auth()->user()->id }}">{{ auth()->user()->name }}</option> --}}
+                                    @foreach ($vehicle_lendings as $vehicle_lending)
+                                        @if ($vehicle_lending->status_lending == 'lend')
+                                            <option value="{{ $vehicle_lending->nameCustomer }}">
+                                                {{ $vehicle_lending->nameCustomer }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+
+
                             <div class="form-group">
                                 <label>plat nomor transportasi</label>
                                 <select class="custom-select form-control " aria-label="Default select example"
                                     id="id_vehicle_lending" name="id_vehicle_lending" required>
+                                    <option value=""></option>
 
                                     {{-- @foreach ($vehicle_lendings as $vehicle_lending)
                                         
@@ -155,6 +178,9 @@
                                 <input type="hidden" name="lending_status" id="lending_status" value="returned">
                                 <input type="hidden" name="status" id="status" value="ready">
                             </div>
+
+
+
 
                             <div class="form-group">
                                 <label>Bensin Terakhir</label>
@@ -187,6 +213,89 @@
 @endsection
 
 @section('JS')
+    <script>
+        function testFungtion() {
+            var nameCustomer = $('#nameCustomer').val();
+            console.log(nameCustomer);
+            $.ajax({
+                url: '{{ url('api/transportations') }}',
+                type: 'GET',
+                success: function(data) {
+                    // Perbarui opsi-opsi dalam elemen <select>
+                    $.ajax({
+                        url: '{{ url('/api/vehicleLends') }}',
+                        type: 'GET',
+                        success: function(data1) {
+                            console.log("editData");
+                            // console.log(datas1[i]['id_transportation']);
+                            // console.log(row);
+                            var select = $('#id_vehicle_lending');
+                            select.empty();
+                            var aphtml = '';
+
+                            let datas = data['data'];
+                            let datas1 = data1['data'];
+                            console.log("data1"+datas1.length)
+                            console.log("data"+datas.length)
+                            for (let i = 0; i < datas1.length; i++) {
+                                if (datas1[i]['status_lending'] ===
+                                    'lend' && datas1[i]['nameCustomer'] ===nameCustomer) {
+                                    for (let j = 0; j < datas
+                                        .length; j++) {
+                                        if (datas1[i][
+                                                'id_transportation'
+                                            ] === datas[j]['id']) {
+                                            aphtml =
+                                                `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
+                                            console.log(datas1[i][
+                                                'id_transportation'
+                                            ]);
+                                            select.append(aphtml);
+
+                                        } else
+                                            aphtml = '';
+                                    }
+
+
+                                } else
+                                    aphtml = '';
+
+                                // else if (datas[i]['id'] === data1[
+                                //         'data'][row][
+                                //         'id_transportation'
+                                //     ])
+                                //     aphtml =
+                                //     `<option value="${datas[i]['id']}" selected>${datas[i]['plate']}</option>`;
+                                // else
+                                //     aphtml = '';
+                                select.append(aphtml);
+
+
+                            }
+
+
+                        },
+                    });
+                    // let datas1 = data["data"];
+                    // var lenderName = $("#nameCustomer");
+
+                    // var temphtml1 = '';
+
+                    // console.log(datas1);
+                    // for (let i = 0; i < datas1.length; i++) {
+                    //     temphtml1 =
+                    //         `<option value="${datas1[i]['nameCustomer']}">${datas1[i]['nameCustomer']}</option>`;
+                    // };
+
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading transportation data:', error);
+                }
+            });
+        }
+    </script>
+
     <!-- DataTables  & Plugins -->
     <script src={{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}></script>
     <script src={{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}></script>
@@ -210,7 +319,7 @@
                 orderable: true,
             },
             {
-                data: "name",
+                data: "name_return",
                 class: 'text-center',
                 orderable: false,
             },
@@ -315,73 +424,83 @@
                 addData() {
                     this.data = {};
                     $('#modal-primary').off('shown.bs.modal');
-                    $('#modal-primary').on('shown.bs.modal', function() {
-                        $.ajax({
-                            url: '{{ url('api/transportations') }}',
-                            type: 'GET',
-                            success: function(data) {
-                                // Perbarui opsi-opsi dalam elemen <select>
-                                $.ajax({
-                                    url: '{{ url('/api/vehicleLends') }}',
-                                    type: 'GET',
-                                    success: function(data1) {
-                                        console.log("editData");
-                                        // console.log(datas1[i]['id_transportation']);
-                                        // console.log(row);
-                                        var select = $('#id_vehicle_lending');
-                                        select.empty();
-                                        var aphtml = '';
+                    // $('#modal-primary').on('shown.bs.modal', function() {
+                    //     // $.ajax({
+                    //     //     url: '{{ url('api/transportations') }}',
+                    //     //     type: 'GET',
+                    //     //     success: function(data) {
+                    //     //         // Perbarui opsi-opsi dalam elemen <select>
+                    //     //         $.ajax({
+                    //     //             url: '{{ url('/api/vehicleLends') }}',
+                    //     //             type: 'GET',
+                    //     //             success: function(data1) {
+                    //     //                 console.log("editData");
+                    //     //                 // console.log(datas1[i]['id_transportation']);
+                    //     //                 // console.log(row);
+                    //     //                 var select = $('#id_vehicle_lending');
+                    //     //                 select.empty();
+                    //     //                 var aphtml = '';
 
-                                        let datas = data['data'];
-                                        let datas1 = data1['data'];
-                                        for (let i = 0; i < datas1.length; i++) {
-                                            if (datas1[i]['status_lending'] ===
-                                                'lend') {
-                                                for (let j = 0; j < datas
-                                                    .length; j++) {
-                                                    if (datas1[i][
-                                                            'id_transportation'
-                                                        ] === datas[j]['id']) {
-                                                        aphtml =
-                                                            `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
-                                                        console.log(datas1[i][
-                                                            'id_transportation'
-                                                        ]);
-                                                        select.append(aphtml);
+                    //     //                 let datas = data['data'];
+                    //     //                 let datas1 = data1['data'];
+                    //     //                 for (let i = 0; i < datas1.length; i++) {
+                    //     //                     if (datas1[i]['status_lending'] ===
+                    //     //                         'lend') {
+                    //     //                         for (let j = 0; j < datas
+                    //     //                             .length; j++) {
+                    //     //                             if (datas1[i][
+                    //     //                                     'id_transportation'
+                    //     //                                 ] === datas[j]['id']) {
+                    //     //                                 aphtml =
+                    //     //                                     `<option value="${datas1[i]['id']}">${datas[j]['plate']} </option>`;
+                    //     //                                 console.log(datas1[i][
+                    //     //                                     'id_transportation'
+                    //     //                                 ]);
+                    //     //                                 select.append(aphtml);
 
-                                                    } else
-                                                        aphtml = '';
-                                                }
-
-
-                                            } else
-                                                aphtml = '';
-
-                                            // else if (datas[i]['id'] === data1[
-                                            //         'data'][row][
-                                            //         'id_transportation'
-                                            //     ])
-                                            //     aphtml =
-                                            //     `<option value="${datas[i]['id']}" selected>${datas[i]['plate']}</option>`;
-                                            // else
-                                            //     aphtml = '';
-                                            select.append(aphtml);
+                    //     //                             } else
+                    //     //                                 aphtml = '';
+                    //     //                         }
 
 
-                                        }
+                    //     //                     } else
+                    //     //                         aphtml = '';
+
+                    //     //                     // else if (datas[i]['id'] === data1[
+                    //     //                     //         'data'][row][
+                    //     //                     //         'id_transportation'
+                    //     //                     //     ])
+                    //     //                     //     aphtml =
+                    //     //                     //     `<option value="${datas[i]['id']}" selected>${datas[i]['plate']}</option>`;
+                    //     //                     // else
+                    //     //                     //     aphtml = '';
+                    //     //                     select.append(aphtml);
 
 
-                                    },
-                                })
+                    //     //                 }
 
 
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Error loading transportation data:', error);
-                            }
-                        });
+                    //     //             },
+                    //     //         });
+                    //     //         // let datas1 = data["data"];
+                    //     //         // var lenderName = $("#nameCustomer");
 
-                    });
+                    //     //         // var temphtml1 = '';
+
+                    //     //         // console.log(datas1);
+                    //     //         // for (let i = 0; i < datas1.length; i++) {
+                    //     //         //     temphtml1 =
+                    //     //         //         `<option value="${datas1[i]['nameCustomer']}">${datas1[i]['nameCustomer']}</option>`;
+                    //     //         // };
+
+
+                    //     //     },
+                    //     //     error: function(xhr, status, error) {
+                    //     //         console.error('Error loading transportation data:', error);
+                    //     //     }
+                    //     // });
+
+                    // });
                     this.editStatus = false;
                     $('#modal-primary').modal();
 
