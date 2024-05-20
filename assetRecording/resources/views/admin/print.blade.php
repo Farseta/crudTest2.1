@@ -4,26 +4,40 @@
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}>
-    {{-- <style>
-        @media print {
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                background-color: aqua;
-            }
+    <style>
+        /* @media print {
+                                            table {
+                                                border-collapse: collapse;
+                                                width: 100%;
+                                                background-color: aqua;
+                                            }
 
-            th,
-            td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-            }
+                                            th,
+                                            td {
+                                                border: 1px solid black;
+                                                padding: 8px;
+                                                text-align: left;
+                                            }
+                                        } */
+        .dataTables_wrapper table {
+            font-size: 10px;
+            /* Ukuran font yang lebih kecil */
         }
-    </style> --}}
+
+        .dataTables_wrapper table td {
+            padding: 5px;
+            /* Mengurangi padding */
+        }
+
+        .dataTables_wrapper table td {
+            white-space: nowrap;
+            /* Mencegah teks melintasi batas kolom */
+        }
+    </style>
 @endsection
 
 @section('title')
-    Print data
+    Data Mobil
 @endsection
 
 @section('sideTitle')
@@ -40,7 +54,8 @@
                     </div> --}}
                     <!-- /.card-header -->
                     <div class="card-body overflow-auto">
-                        <table class="table table-bordered table-sm" id="datatable" style="width:10%;height: 70px;font-size:1vw;margin-left:30px;">
+                        <table class="table table-bordered table-sm" id="datatable"
+                            style="width:10%;height: 70px;font-size:1vw;">
                             {{-- <h1 class="text-center"> judul</h1> --}}
                             <thead>
                                 <tr>
@@ -153,98 +168,98 @@
                 data: 'DT_RowIndex',
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "name",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "nameReturn",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "nameCustomer",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "phoneNumber",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "plate",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "brand",
                 class: 'text-center',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "last_gas",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "last_km",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "gas_money_last",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "gas_money",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "status_lending",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "date_convert_created_at_lending",
                 class: 'text-center col-1',
                 orderable: true,
-                
+
             },
             {
                 // done
                 data: "date_convert_created_at",
                 class: 'text-center col-md-2',
                 orderable: true,
-                
+
             },
             // {
             //     render: function(index, row, data, meta) {
@@ -283,21 +298,28 @@
                         },
                         columns: columns,
                         // responsive: true,
-                        dom:"Bfrtip",
-                        button:[{
-                            extend : 'pdf',
-                            oriented: 'potrait',
-                            pageSize:'Legal',
-                            title: 'Data Kendaraan',
-                            download: 'open',
-                        },
-                            'copy', 'csv', 'excel', 'print'
+                        dom: "Bfrtip",
+                        button: [{
+                                extend: 'pdfHtml5',
+                                orientation: 'landscape',
+                                pageSize: 'LEGAL',
+                                title: 'Data Kendaraan',
+
+                                download: 'open',
+                                customize: function(win) {
+                                    $(win.document.body).css('font-size', '119px');
+                                    $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                                },
+                            },
+                            'copy', 'csv', 'excel', 'print', "pdf"
                         ]
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;
                     });
                 },
-                
+
             },
         });
 
@@ -308,5 +330,4 @@
             newWindow.print();
         };
     </script>
-
 @endsection

@@ -4,6 +4,23 @@
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}>
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}>
+    <style>
+        /* .modal-dialog {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            
+        }
+
+        .modal-content {
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        } */
+    </style>
 @endsection
 
 @section('title')
@@ -209,6 +226,8 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+      
     </div>
 @endsection
 
@@ -235,11 +254,11 @@
 
                             let datas = data['data'];
                             let datas1 = data1['data'];
-                            console.log("data1"+datas1.length)
-                            console.log("data"+datas.length)
+                            console.log("data1" + datas1.length)
+                            console.log("data" + datas.length)
                             for (let i = 0; i < datas1.length; i++) {
                                 if (datas1[i]['status_lending'] ===
-                                    'lend' && datas1[i]['nameCustomer'] ===nameCustomer) {
+                                    'lend' && datas1[i]['nameCustomer'] === nameCustomer) {
                                     for (let j = 0; j < datas
                                         .length; j++) {
                                         if (datas1[i][
@@ -294,6 +313,10 @@
                 }
             });
         }
+        // function testFungtion2(event, row){
+        //     $('#modal-secondary').modal();
+        //     console.log();
+        // }
     </script>
 
     <!-- DataTables  & Plugins -->
@@ -380,7 +403,8 @@
             },
             {
                 render: function(index, row, data, meta) {
-                    return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                    // return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                    return `<a href="{{ url('printInvoice/${meta.row+1}') }}" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
                 },
                 data: null,
                 orderable: false,
@@ -503,6 +527,28 @@
                     // });
                     this.editStatus = false;
                     $('#modal-primary').modal();
+
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    this.editStatus = true;
+                    console.log(this.data)
+                    
+                    // var select = $('#id_vehicle_lending');
+                    // select.empty();
+                    // var aphtml = `
+                // <h5 class="card-title" >Nama Peminjam: </h5>
+                //             <br>
+                //             <h5 class="card-title" >Nama Admin Peminjaman: pppp</h5>
+                //             <br>
+                //             <h5 class="card-title" >Nama Admin Pengembalian: </h5>
+                //             <br>
+                //             <p class="card-text"> 
+                //             </p>
+                //             <a href="#" class="btn btn-primary">Go somewhere</a>
+                // `;
+                    // select.append(aphtml);
+                    $('#modal-secondary').modal();
 
                 },
 

@@ -4,7 +4,7 @@ use function PHPSTORM_META\type;
 
 function date_convert($value)
 {
-    return date("F j, Y, g:i a", strtotime($value));
+    return date("j F Y, g:i a", strtotime($value));
 };
 function date_left($value)
 {

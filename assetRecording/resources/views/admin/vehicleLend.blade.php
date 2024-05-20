@@ -140,21 +140,7 @@
                                     id="id_transportation" name="id_transportation" required>
 
 
-                                    {{-- @foreach ($transportations as $key => $transportation)
-                                        @if ($transportation->status === 'ready')
-                                            <option value="{{ $transportation->id }}">
-                                                {{ $key }} {{ $transportation->plate }}
-
-                                            </option>
-                                        @else
-                                            <option value="{{ $transportation->id }}" v-if='editStatus'
-                                                :selected="data.id_transportation == {{ $transportation->id }}">
-                                                {{ $transportation->plate }}
-
-                                            </option>
-                                        @endif
-                                    @endforeach --}}
-
+                                   
                                 </select>
                                 <input type="hidden" name="oldStatus" id="oldStatus" value="ready" v-if='editStatus'>
                                 <input type="hidden" name="oldIdTransportation" id="oldIdTransportation"

@@ -50,3 +50,7 @@ Route::get('/api/vehicleReturns',[App\Http\Controllers\Vehicle_returnController:
 Route::resource('/print', App\Http\Controllers\PrintController::class);
 Route::get('/api/print', [App\Http\Controllers\PrintController::class, 'api']);
 // print end
+
+// print invoice start
+Route::resource('/printInvoice/{print}', App\Http\Controllers\Print_invoiceController::class);
+// print invoice end
