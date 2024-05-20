@@ -246,7 +246,8 @@
                         return `ending`;
                     } else {
                         return `<a href="#" class="btn btn-warning" onclick="controller.editData(event,${meta.row})">Edit</a>
-                        <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Cancel</a>`;
+                        <a href="#" class="btn btn-danger" onclick="controller.deleteData(event,${data.id})">Cancel</a>
+                        <a href="{{ url('printInvoiceReturn/${meta.row+1}') }}" class="btn btn-info" >info</a>`;
                     }
 
                 },

@@ -52,5 +52,9 @@ Route::get('/api/print', [App\Http\Controllers\PrintController::class, 'api']);
 // print end
 
 // print invoice start
-Route::resource('/printInvoice/{print}', App\Http\Controllers\Print_invoiceController::class);
+Route::get('/printInvoice/{print}', [App\Http\Controllers\Print_invoiceController::class,'index']);
 // print invoice end
+
+// print invoice lending start
+Route::get('/printInvoiceReturn/{print}', [App\Http\Controllers\Print_invoice_returnController::class,'index']);
+// print invoice lending end

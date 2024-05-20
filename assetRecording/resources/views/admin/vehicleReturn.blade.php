@@ -403,8 +403,13 @@
             },
             {
                 render: function(index, row, data, meta) {
-                    // return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
-                    return `<a href="{{ url('printInvoice/${meta.row+1}') }}" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                    if (data.lending_status == 'canceled') {
+                        return `Data Canceled`;
+                    }else{
+
+                        // return `<a href="#" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                        return `<a href="{{ url('printInvoice/${meta.row+1}') }}" class="btn btn-info" onclick="controller.editData(event,${meta.row})">info</a>`;
+                    }
                 },
                 data: null,
                 orderable: false,

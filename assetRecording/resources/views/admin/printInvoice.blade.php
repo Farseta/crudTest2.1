@@ -6,8 +6,8 @@
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}>
     <style>
         /* #controller {
-                                    background: #ffffff;
-                                } */
+                                        background: #ffffff;
+                                    } */
 
         hr {
             border: 1px solid #000000;
@@ -17,7 +17,12 @@
 @endsection
 
 @section('title')
-    print perorang
+    print invoice untuk
+    @foreach ($vehicle_lendings as $vehicle_lending)
+        @if ($vehicle_lending->id == $print->id_vehicle_lending)
+            {{ $vehicle_lending->nameCustomer }}
+        @endif
+    @endforeach
 @endsection
 
 
@@ -95,6 +100,24 @@
                                 <div class="col-4 ">
 
                                     {{ $vehicle_lending->nameCustomer }}
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+
+                    {{-- nomor penerima --}}
+                    @foreach ($vehicle_lendings as $vehicle_lending)
+                        @if ($vehicle_lending->id == $print->id_vehicle_lending)
+                            <div class="row">
+                                <div class="col-4">
+                                    Nomor Telepon
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-4 ">
+
+                                    {{ $vehicle_lending->phoneNumber }}
                                 </div>
                             </div>
                         @endif
@@ -254,10 +277,5 @@
     @endsection
 
     @section('JS')
-        <script>
-            console.log($times)
-            // var dateback=date_convert({{ $print->updated_at }});
-            console.log(dateback + "sada")
-            document.getElementById('tes').innerHTML = "Mojokerto, " + dateback;
-        </script>
+        
     @endsection
