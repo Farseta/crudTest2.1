@@ -11,6 +11,10 @@ use App\Models\Vehicle_return;
 
 class PrintController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $vehicle_returns= Vehicle_return::with('vehicle_lending')->get();

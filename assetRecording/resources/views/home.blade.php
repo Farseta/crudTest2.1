@@ -222,87 +222,433 @@
         });
     </script> --}}
     <script>
+        function dateLeft(value) {
+            var dateParts = value.split("-");
+            var year = parseInt(dateParts[0], 10);
+            var month = parseInt(dateParts[1], 10);
+            var day = parseInt(dateParts[2], 10);
+
+            var date1 = new Date(year, month - 1, day); // Month in JavaScript is 0-indexed
+            var date2 = new Date(); // Current date
+            // console.log("date3=" + date1);
+            var diff = Math.floor((date1 - date2) / (1000 * 60 * 60 * 24)); // Difference in days
+            console.log("diff=" + diff);
+            // return false
+            if (diff >= 0 && diff < 30) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function dateLeft2(value) {
+            var dateParts = value.split("-");
+            var year = parseInt(dateParts[0], 10);
+            var month = parseInt(dateParts[1], 10);
+            var day = parseInt(dateParts[2], 10);
+
+            var date1 = new Date(year, month - 1, day); // Month in JavaScript is 0-indexed
+            var date2 = new Date(); // Current date
+            // console.log("date1=" + date1);
+            // console.log("date2=" + date2);
+            var diff = Math.floor((date1 - date2) / (1000 * 60 * 60 * 24)); // Difference in days
+            console.log("diff2=" + diff);
+            if (diff < 0) {
+                return true; // Lebih dari 30 hari atau tanggal yang diberikan lebih besar dari tanggal saat ini
+            } else {
+                return false; // Tidak lebih dari 30 hari
+            }
+            // return false
+        }
+
+        var transportation_tax_date = `
+                <h3>Pajak Mobil </h3>
+
+          @foreach ($transportation_for_toasts as $key => $transportation)
+          @if (date_left($transportation->tax_date) == true)
+
+            <td class="text-center">
+              {{ $transportation->brand }} -
+            </td>
+            <td class="text-center">
+              {{ $transportation->plate }} -
+            </td>
+            <td class="text-center">
+              {{ $transportation->tax_date }}
+            </td>
+            </br>
+
+          @endif
+
+          @endforeach
+          <hr>`;
+        var transportation_oil_date = `   <h3>Ganti Oli Mobil </h3>
+
+   @foreach ($transportation_for_toasts as $key => $transportation)
+   @if (date_left($transportation->oil_date) == true)
+
+     <td class="text-center">
+        | {{ $transportation->brand }} |
+     </td>
+     <td class="text-center">
+       {{ $transportation->plate }} |
+     </td>
+     <td class="text-center">
+      {{ $transportation->oil_date }} |
+   </td>
+   </br>
+
+  @endif
+
+  @endforeach
+  <hr>`;
+        var transportation_oil_date_late =`<h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
+    @foreach ($transportation_for_toasts as $key => $transportation)
+        @if (date_left2($transportation->oil_date) == true)
+
+                <td>
+                   | {{ $transportation->brand }} |
+                </td>
+                <td>
+                    {{ $transportation->plate }} |
+                </td>
+                <td>
+                    {{ $transportation->oil_date }} |
+                </td>
+            </br>
+
+        @endif
+    @endforeach`; 
+        var transportation_tax_date_late = `  <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
+       @foreach ($transportation_for_toasts as $key => $transportation)
+         @if (date_left2($transportation->tax_date) == true)
+
+                 <td>
+                     | {{ $transportation->brand }} |
+                 </td>
+                 <td>
+                     {{ $transportation->plate }} |
+                 </td>
+                <td>
+                     {{ $transportation->tax_date }} |
+                 </td>
+                 </br>
+
+         @endif
+     @endforeach
+     <hr>`;
+
+        var pushHtml = '';
+        var ea1 = false;
+        var ea2 = false;
+        var ea3 = false;
+        var ea4 = false;
+        var transportation_for_toasts = @json($transportation_for_toasts);
+
+        transportation_for_toasts.forEach(function(transportation) {
+            console.log(dateLeft(transportation.tax_date) === true || dateLeft(transportation.oil_date) === true);
+            console.log(dateLeft2(transportation.tax_date) === true || dateLeft2(transportation.oil_date) === true);
+            if (dateLeft(transportation.tax_date) === true || dateLeft(transportation.oil_date) === true ||
+                dateLeft2(transportation.tax_date) === true || dateLeft2(transportation.oil_date) === true) {
+                if (dateLeft(transportation.oil_date) === true) {
+                    console.log("oil pas"+transportation.plate)
+                    ea1 = true
+                } 
+                else if (dateLeft2(transportation.oil_date) === true) {
+                    console.log("oiltelat"+transportation.plate)
+                    ea2 = true
+
+                } 
+                if (dateLeft(transportation.tax_date) === true) {
+                    console.log("pajakpas"+transportation.plate)
+                    ea3 = true
+
+                } 
+                else if (dateLeft2(transportation.tax_date) === true) {
+                    console.log("pajaktelat"+transportation.plate)
+                    ea4 = true
+
+                }
+            }
+        });
+        if (ea1 == true) {
+            pushHtml = pushHtml + transportation_oil_date;
+        }
+        if (ea3 == true) {
+            pushHtml = pushHtml + transportation_tax_date;
+        }
+        if (ea2 == true) {
+            pushHtml = pushHtml + transportation_oil_date_late;
+        }
+        if (ea4 == true) {
+            pushHtml = pushHtml + transportation_tax_date_late;
+        }
+        pushHtml = pushHtml +
+            `</br> Untuk mengupdate data pergi ke <a href="{{ url('transportations') }}"> Aseet Mobil <a>`;
         Swal.fire({
             icon: 'info',
             title: 'Selamat datang ' + "{{ auth()->user()->name }}",
-            html: `
-                <h3>Pajak Mobil </h3>
-                
-                  @foreach ($transportation_for_toasts as $key => $transportation)
-                  @if (date_left($transportation->tax_date) == true)
-                   
-                    <td class="text-center">
-                      {{ $transportation->brand }} -
-                    </td>
-                    <td class="text-center">
-                      {{ $transportation->plate }} -
-                    </td>
-                    <td class="text-center">
-                      {{ $transportation->tax_date }}
-                    </td>
-                    </br>
-                  
-                  @endif
-                  
-                  @endforeach
-                  <hr>
-                  <h3>Ganti Oli Mobil </h3>
-                
-                  @foreach ($transportation_for_toasts as $key => $transportation)
-                  @if (date_left($transportation->oil_date) == true)
-                  
-                    <td class="text-center">
-                       | {{ $transportation->brand }} |
-                    </td>
-                    <td class="text-center">
-                      {{ $transportation->plate }} |
-                    </td>
-                    <td class="text-center">
-                      {{ $transportation->oil_date }} |
-                    </td>
-                    </br>
-                  
-                  @endif
-                  
-                  @endforeach
-                  <hr>
-                  <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
-                  @foreach ($transportation_for_toasts as $key => $transportation)
-                    @if (date_left2($transportation->tax_date) == true)
-                        
-                            <td>
-                                | {{ $transportation->brand }} |
-                            </td>
-                            <td>
-                                {{ $transportation->plate }} |
-                            </td>
-                            <td>
-                                {{ $transportation->tax_date }} |
-                            </td>
-                            </br>
-                        
-                    @endif
-                @endforeach
-                <hr>
-                <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
-                @foreach ($transportation_for_toasts as $key => $transportation)
-                    @if (date_left2($transportation->oil_date) == true)
-                        
-                            <td>
-                               | {{ $transportation->brand }} |
-                            </td>
-                            <td>
-                                {{ $transportation->plate }} |
-                            </td>
-                            <td>
-                                {{ $transportation->oil_date }} |
-                            </td>
-                        </br>
-                        
-                    @endif
-                @endforeach
-                 </br> Untuk mengupdate data pergi ke 
-                <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+            html: pushHtml,
         });
+
+        // if ((dateLeft(transportation.tax_date) === true || dateLeft(transportation.oil_date) === true) && (
+        //         dateLeft2(transportation.tax_date) === true || dateLeft2(transportation.oil_date) === true)) {
+
+        // Swal.fire({
+        //     icon: 'info',
+        //     title: 'Selamat datang ' + "{{ auth()->user()->name }}",
+        //     html: `
+    // <h3>Pajak Mobil </h3>
+
+    //   @foreach ($transportation_for_toasts as $key => $transportation)
+    //   @if (date_left($transportation->tax_date) == true)
+
+    //     <td class="text-center">
+    //       {{ $transportation->brand }} -
+    //     </td>
+    //     <td class="text-center">
+    //       {{ $transportation->plate }} -
+    //     </td>
+    //     <td class="text-center">
+    //       {{ $transportation->tax_date }}
+    //     </td>
+    //     </br>
+
+    //   @endif
+
+    //   @endforeach
+    //   <hr>
+    //   <h3>Ganti Oli Mobil </h3>
+
+    //   @foreach ($transportation_for_toasts as $key => $transportation)
+    //   @if (date_left($transportation->oil_date) == true)
+
+    //     <td class="text-center">
+    //        | {{ $transportation->brand }} |
+    //     </td>
+    //     <td class="text-center">
+    //       {{ $transportation->plate }} |
+    //     </td>
+    //     <td class="text-center">
+    //       {{ $transportation->oil_date }} |
+    //     </td>
+    //     </br>
+
+    //   @endif
+
+    //   @endforeach
+    //   <hr>
+    //   <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
+    //   @foreach ($transportation_for_toasts as $key => $transportation)
+    //     @if (date_left2($transportation->tax_date) == true)
+
+    //             <td>
+    //                 | {{ $transportation->brand }} |
+    //             </td>
+    //             <td>
+    //                 {{ $transportation->plate }} |
+    //             </td>
+    //             <td>
+    //                 {{ $transportation->tax_date }} |
+    //             </td>
+    //             </br>
+
+    //     @endif
+    // @endforeach
+    // <hr>
+    // <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
+    // @foreach ($transportation_for_toasts as $key => $transportation)
+    //     @if (date_left2($transportation->oil_date) == true)
+
+    //             <td>
+    //                | {{ $transportation->brand }} |
+    //             </td>
+    //             <td>
+    //                 {{ $transportation->plate }} |
+    //             </td>
+    //             <td>
+    //                 {{ $transportation->oil_date }} |
+    //             </td>
+    //         </br>
+
+    //     @endif
+    // @endforeach
+    //  </br> Untuk mengupdate data pergi ke 
+    // <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+        // });
+        // } else if (dateLeft(transportation.tax_date) === true || dateLeft(transportation.oil_date) === true) {
+
+        //     Swal.fire({
+        //         icon: 'info',
+        //         title: 'Selamat datang ' + "{{ auth()->user()->name }}",
+        //         html: ` <h3>Pajak Mobil </h3>
+
+    //     @foreach ($transportation_for_toasts as $key => $transportation)
+    //     @if (date_left($transportation->tax_date) == true)
+
+    //       <td class="text-center">
+    //         {{ $transportation->brand }} -
+    //       </td>
+    //       <td class="text-center">
+    //         {{ $transportation->plate }} -
+    //       </td>
+    //       <td class="text-center">
+    //         {{ $transportation->tax_date }}
+    //       </td>
+    //       </br>
+
+    //     @endif
+
+    //     @endforeach
+    //     <hr>
+    //     <h3>Ganti Oli Mobil </h3>
+
+    //     @foreach ($transportation_for_toasts as $key => $transportation)
+    //     @if (date_left($transportation->oil_date) == true)
+
+    //       <td class="text-center">
+    //          | {{ $transportation->brand }} |
+    //       </td>
+    //       <td class="text-center">
+    //         {{ $transportation->plate }} |
+    //       </td>
+    //       <td class="text-center">
+    //         {{ $transportation->oil_date }} |
+    //       </td>
+    //       </br>
+
+    //     @endif
+
+    //     @endforeach
+    //     <hr>
+    //     `,
+        //     });
+
+        // } else if (dateLeft2(transportation.tax_date) == true || dateLeft2(transportation.oil_date) == true) {
+        //     Swal.fire({
+        //         icon: 'info',
+        //         tittle: 'Selamat datang ' + "{{ auth()->user()->name }}",
+        //         html: ` <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
+    //       @foreach ($transportation_for_toasts as $key => $transportation)
+    //         @if (date_left2($transportation->tax_date) == true)
+
+    //                 <td>
+    //                     | {{ $transportation->brand }} |
+    //                 </td>
+    //                 <td>
+    //                     {{ $transportation->plate }} |
+    //                 </td>
+    //                 <td>
+    //                     {{ $transportation->tax_date }} |
+    //                 </td>
+    //                 </br>
+
+    //         @endif
+    //     @endforeach
+    //     <hr>
+    //     <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
+    //     @foreach ($transportation_for_toasts as $key => $transportation)
+    //         @if (date_left2($transportation->oil_date) == true)
+
+    //                 <td>
+    //                    | {{ $transportation->brand }} |
+    //                 </td>
+    //                 <td>
+    //                     {{ $transportation->plate }} |
+    //                 </td>
+    //                 <td>
+    //                     {{ $transportation->oil_date }} |
+    //                 </td>
+    //             </br>
+
+    //         @endif
+    //     @endforeach
+    //      </br> Untuk mengupdate data pergi ke 
+    //     <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+        //     })
+        // }
+
+        // Swal.fire({
+        //     icon: 'info',
+        //     title: 'Selamat datang ' + "{{ auth()->user()->name }}",
+        //     html: `
+    //         <h3>Pajak Mobil </h3>
+
+    //           @foreach ($transportation_for_toasts as $key => $transportation)
+    //           @if (date_left($transportation->tax_date) == true)
+
+    //             <td class="text-center">
+    //               {{ $transportation->brand }} -
+    //             </td>
+    //             <td class="text-center">
+    //               {{ $transportation->plate }} -
+    //             </td>
+    //             <td class="text-center">
+    //               {{ $transportation->tax_date }}
+    //             </td>
+    //             </br>
+
+    //           @endif
+
+    //           @endforeach
+    //           <hr>
+    //           <h3>Ganti Oli Mobil </h3>
+
+    //           @foreach ($transportation_for_toasts as $key => $transportation)
+    //           @if (date_left($transportation->oil_date) == true)
+
+    //             <td class="text-center">
+    //                | {{ $transportation->brand }} |
+    //             </td>
+    //             <td class="text-center">
+    //               {{ $transportation->plate }} |
+    //             </td>
+    //             <td class="text-center">
+    //               {{ $transportation->oil_date }} |
+    //             </td>
+    //             </br>
+
+    //           @endif
+
+    //           @endforeach
+    //           <hr>
+    //           <h3 style="color: #f40a0a">Pajak Kendaraan Terlambat</h3>
+    //           @foreach ($transportation_for_toasts as $key => $transportation)
+    //             @if (date_left2($transportation->tax_date) == true)
+
+    //                     <td>
+    //                         | {{ $transportation->brand }} |
+    //                     </td>
+    //                     <td>
+    //                         {{ $transportation->plate }} |
+    //                     </td>
+    //                     <td>
+    //                         {{ $transportation->tax_date }} |
+    //                     </td>
+    //                     </br>
+
+    //             @endif
+    //         @endforeach
+    //         <hr>
+    //         <h3 style="color: #f40a0a">Ganti Oli Kendaraan Terlambat</h3>
+    //         @foreach ($transportation_for_toasts as $key => $transportation)
+    //             @if (date_left2($transportation->oil_date) == true)
+
+    //                     <td>
+    //                        | {{ $transportation->brand }} |
+    //                     </td>
+    //                     <td>
+    //                         {{ $transportation->plate }} |
+    //                     </td>
+    //                     <td>
+    //                         {{ $transportation->oil_date }} |
+    //                     </td>
+    //                 </br>
+
+    //             @endif
+    //         @endforeach
+    //          </br> Untuk mengupdate data pergi ke 
+    //         <a href="{{ url('transportations') }}"> Aseet Mobil <a>`,
+        // });
     </script>
 @endsection

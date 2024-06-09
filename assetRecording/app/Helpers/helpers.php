@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use function PHPSTORM_META\type;
 
@@ -22,7 +22,7 @@ function date_left($value)
         return false;
     }
     // return $diff;
-
+    
     // return gettype($diff->d);
 };
 function date_left2($value)
@@ -41,6 +41,7 @@ function date_left2($value)
         return true; // Tanggal yang diberikan lebih besar dari tanggal saat ini
     }
 }
+
 
 function stint($value)
 {

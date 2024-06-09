@@ -10,6 +10,10 @@ use App\Models\Vehicle_return;
 
 class Print_invoiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //
     public function index(Vehicle_return $print)
     {

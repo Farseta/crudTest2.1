@@ -6,8 +6,8 @@
     <link rel="stylesheet" href={{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}>
     <style>
         /* #controller {
-                                        background: #ffffff;
-                                    } */
+                                            background: #ffffff;
+                                        } */
 
         hr {
             border: 1px solid #000000;
@@ -199,12 +199,12 @@
                             :
                         </div>
                         <div class="col-6 ">
-                            Uang dihabiskan: Rp.{{ $print->gas_money }} <br>
 
                             @foreach ($vehicle_lendings as $vehicle_lending)
                                 @if ($vehicle_lending->id == $print->id_vehicle_lending)
                                     Uang Diberikan: Rp.{{ $vehicle_lending->gas_money }} <br>
-                                    sisa: Rp.{{ $print->gas_money - $vehicle_lending->gas_money }}
+                                    Uang dihabiskan: Rp.{{ $vehicle_lending->gas_money - $print->gas_money }} <br>
+                                    sisa: Rp.{{ $print->gas_money }}
                                 @endif
                             @endforeach
 
@@ -277,5 +277,4 @@
     @endsection
 
     @section('JS')
-        
     @endsection

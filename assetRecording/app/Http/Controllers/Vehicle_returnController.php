@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class Vehicle_returnController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
