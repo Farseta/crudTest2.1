@@ -60,7 +60,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake " src="assets/dist/img/logo2.png" alt="gansop" height="700" width="500">
+            <img class="animation__shake " src="assets/dist/img/logo2.png" alt="please wait...." height="700" width="500">
         </div>
 
         <!-- Navbar -->

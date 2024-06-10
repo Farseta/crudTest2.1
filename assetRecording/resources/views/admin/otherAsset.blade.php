@@ -110,8 +110,9 @@
                                     {{-- <label for="pict" class="form-label">Default file input example</label> --}}
                                     <input type="hidden" name="oldPict" id="oldPict" v-if='editStatus'
                                         :value="data.pict">
-                                    <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;"
-                                        :src="anotherUrl">
+                                    {{-- <embed class="img-preview img-fluid mb-3" style="width: 800px; height: 800px;"
+                                        :src="anotherUrl"> --}}
+                                        <iframe class="img-preview" id="pdfFrame" :src="anotherUrl" width="100%" height="600px"></iframe>    
                                     <input class="form-control" type="file" id="pict" name="pict"
                                         onchange="previewImage()">
                                 </div>
@@ -131,7 +132,7 @@
 
         {{-- modal for show --}}
         <div class="modal fade" id="modal-info">
-            <div class="modal-dialog modal-fullscreen" style="min-width:90%; min-height:90%;">
+            <div class="modal-dialog modal-fullscreen" >
                 <div class="modal-content bg-info">
                     <div class="modal-header" >
                         
@@ -146,7 +147,8 @@
                     <div class="modal-body" style="text-align: center;">
                         <form :action="actionUrl" autocomplete="off" enctype="multipart/form-data">
                            
-                            <embed :src="anotherUrl" alt="" style="max-width: 90%;min-width:350px ;max-height: 90%;min-height:600px ">
+                            {{-- <embed :src="anotherUrl" alt="" style="max-width: 90%;min-width:350px ;max-height: 90%;min-height:600px "> --}}
+                            <iframe id="pdfFrame" :src="anotherUrl" width="100%" height="600px"></iframe>
                         </form>
 
                     </div>
